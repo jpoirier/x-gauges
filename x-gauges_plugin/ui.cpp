@@ -29,8 +29,10 @@
 
 #include "defs.h"
 #include "plugin.h"
-#include "ui.h"
+#include "worker_threads.h"
 #include "config.h"
+#include "ui.h"
+
 
 void create_widget(int x, int y, int w, int h);
 void menu_handler(void* mRef, void* iRef);

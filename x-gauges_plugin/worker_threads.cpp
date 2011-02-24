@@ -16,16 +16,21 @@
 
 #include "defs.h"
 //#include "utils.h"
-#include "worker_threads.h"
 #include "nedmalloc.h"
 #include "overloaded.h"
 #include "plugin.h"
+#include "worker_threads.h"
 
 
 USING_PTYPES
 
 const int MSG_MYJOB         = MSG_USER + 1;
 int volatile threads_run    = false;
+
+WorkerThread* p1 = 0;
+WorkerThread* p2 = 0;
+WorkerThread* cp1 = 0;
+WorkerThread* cp2 = 0;
 
 jobqueue    gP1_ijq;
 jobqueue    gP2_ijq;
@@ -38,7 +43,7 @@ trigger     gCp1Trigger(false, false);
 trigger     gCp2Trigger(false, false);
 
 
-/**
+/**  obj(p_smt->peer_addr, p_smt->peer_port)
  *
  */
 void WorkerThread::execute() {
@@ -57,6 +62,12 @@ void WorkerThread::execute() {
 
 // TODO: check if avionics are on or off
 // TODO: serialize the struct data and send via udp
+//            try {
+//                udp.send((const char*) udpSnd_buf, u8_snd_cnt);
+//            } catch(estream* e) {
+//                perr.putf("ClientThread jobqueue error: %s\n", pconst(e->get_message()));
+//                delete e;
+//            }
 
 //end:
         free(s);
@@ -64,6 +75,26 @@ void WorkerThread::execute() {
     }
 
     DPRINTF_VA("X-Gauge Plugin: thread %d says goodbye\n", id);
+}
+
+bool WorkerThread::net_config(pt::ipaddress ip, int port) {
+    bool err = false;
+
+    if (!udp) {
+        free(udp);
+        udp = 0;
+    }
+
+    try {
+        udp = (ipmessage*) new ipmessage(ip, port);
+    } catch (estream* e) {
+        DPRINTF_VA("NET CONFIG Error - id: %d, %s\n", id, (const char*)e->get_message());
+        udp = 0;
+        delete e;
+        err = true;
+    }
+
+    return err;
 }
 
 

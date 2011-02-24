@@ -5,9 +5,9 @@
 #ifndef WORKER_THREADS_H
 #define WORKER_THREADS_H
 
+#include "pinet.h"
 #include "pasync.h"
 #include "defs.h"
-#include "plugin.h"
 
 
 /**
@@ -19,8 +19,10 @@
 class WorkerThread : public pt::thread {
     protected:
         int             id;
+        int             port;
         pt::jobqueue*   ijq;
         pt::trigger*    state;
+        pt::ipmessage*  udp;
 
 //        unsigned char   buf[IN_BUF_CNT];
 
@@ -29,8 +31,10 @@ class WorkerThread : public pt::thread {
 
     public:
         WorkerThread(int iid, pt::jobqueue* iiq, pt::trigger* itrigger)
-                        : thread(true), id(iid), ijq(iiq), state(itrigger) {}
+                        : thread(true), id(iid), ijq(iiq), state(itrigger), udp(0) {}
         ~WorkerThread() {}
+
+        bool net_config(pt::ipaddress ip, int port);
 };
 
 
@@ -64,6 +68,11 @@ extern "C" {
     extern pt::jobqueue gCp2_ijq;
 
     extern int volatile threads_run;
+
+    extern WorkerThread* p1;
+    extern WorkerThread* p2;
+    extern WorkerThread* cp1;
+    extern WorkerThread* cp2;
 
 #ifdef __cplusplus
 }

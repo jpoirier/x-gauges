@@ -18,10 +18,10 @@
 #include "XPLMUtilities.h"
 
 #include "nedmalloc.h"
-#include "defs.h"
 #include "overloaded.h"
-#include "worker_threads.h"
+#include "defs.h"
 #include "plugin.h"
+#include "worker_threads.h"
 
 float FlightLoopCallback(float inElapsedSinceLastCall,
                          float inElapsedTimeSinceLastFlightLoop,
@@ -29,6 +29,19 @@ float FlightLoopCallback(float inElapsedSinceLastCall,
                          void* inRefcon);
 
 USING_PTYPES
+
+string gP1_ip       = " ";
+string gP1_port     = " ";
+string gP1_enabled  = '0';
+string gP2_ip       = " ";
+string gP2_port     = " ";
+string gP2_enabled  = '0';
+string gCp1_ip      = " ";
+string gCp1_port    = " ";
+string gCp1_enabled = '0';
+string gCp2_ip      = " ";
+string gCp2_port    = " ";
+string gCp2_enabled = '0';
 
 bool gPowerUp = true;
 bool gEnabled = false;
@@ -113,19 +126,6 @@ XPLMDataRef roll_vacuum_deg_copilot_ref;
 XPLMDataRef wind_heading_deg_mag_ref;
 XPLMDataRef wind_speed_kts_ref;
 
-string gP1_ip       = " ";
-string gP1_port     = " ";
-string gP1_enabled  = '0';
-string gP2_ip       = " ";
-string gP2_port     = " ";
-string gP2_enabled  = '0';
-string gCp1_ip      = " ";
-string gCp1_port    = " ";
-string gCp1_enabled = '0';
-string gCp2_ip      = " ";
-string gCp2_port    = " ";
-string gCp2_enabled = '0';
-
 /*
  *
  */
@@ -179,11 +179,6 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
     DPRINTF("X-Gauges Plugin: data refs initialized\n");
 
     pexchange((int*)&threads_run, true);
-
-    WorkerThread* p1;
-    WorkerThread* p2;
-    WorkerThread* cp1;
-    WorkerThread* cp2;
 
     p1  = new WorkerThread(P1_THREAD_ID, &gP1_ijq, &gP1Trigger);
     p2  = new WorkerThread(P2_THREAD_ID, &gP2_ijq, &gP2Trigger);

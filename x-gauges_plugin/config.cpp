@@ -13,10 +13,11 @@
 
 #include "XPLMUtilities.h"
 
-//#include "nedmalloc.h"
+#include "nedmalloc.h"
 #include "defs.h"
-//#include "overloaded.h"
+#include "overloaded.h"
 #include "plugin.h"
+#include "worker_threads.h"
 #include "config.h"
 
 USING_PTYPES
