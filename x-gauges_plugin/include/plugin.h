@@ -8,6 +8,7 @@
 //#include "pstreams.h"
 
 typedef struct tagGaugeInfo {
+    int sys_magic;
     float systems_avionics_on;
     float systems_avionics_off;
     float compass_heading_deg_mag;
@@ -35,18 +36,18 @@ typedef struct tagGaugeInfo {
 extern "C" {
 #endif
 
-extern string gP1_ip;
-extern string gP1_port;
-extern string gP1_enabled;
-extern string gP2_ip;
-extern string gP2_port;
-extern string gP2_enabled;
-extern string gCp1_ip;
-extern string gCp1_port;
-extern string gCp1_enabled;
-extern string gCp2_ip;
-extern string gCp2_port;
-extern string gCp2_enabled;
+extern pt::string gP1_ip;
+extern pt::string gP1_port;
+extern pt::string gP1_enabled;
+extern pt::string gP2_ip;
+extern pt::string gP2_port;
+extern pt::string gP2_enabled;
+extern pt::string gCp1_ip;
+extern pt::string gCp1_port;
+extern pt::string gCp1_enabled;
+extern pt::string gCp2_ip;
+extern pt::string gCp2_port;
+extern pt::string gCp2_enabled;
 
 #ifdef __cplusplus
 }

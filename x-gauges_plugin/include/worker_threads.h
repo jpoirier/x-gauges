@@ -2,8 +2,8 @@
 // Distributable under the terms of The New BSD License
 // that can be found in the LICENSE file.
 
-#ifndef THREADS_H
-#define THREADS_H
+#ifndef WORKER_THREADS_H
+#define WORKER_THREADS_H
 
 #include "pasync.h"
 #include "defs.h"
@@ -29,7 +29,7 @@ class WorkerThread : public pt::thread {
 
     public:
         WorkerThread(int iid, pt::jobqueue* iiq, pt::trigger* itrigger)
-                        : thread(true), id(iid) ijq(iiq), state(itrigger) {}
+                        : thread(true), id(iid), ijq(iiq), state(itrigger) {}
         ~WorkerThread() {}
 };
 

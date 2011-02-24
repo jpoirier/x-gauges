@@ -12,6 +12,12 @@
 # define bool   _BOOL
 #endif
 
+#define SYS_MAGIC_NUM               (173975)
+#define NETWORK_SEND_INTERVAL       (25)
+
+#define MSG_WAIT                    (-1)
+
+
 // Standard printf
 #ifdef NPRINTF
     #define PRINTF(fmt)
@@ -53,6 +59,13 @@
     #define EPRINTF_VA(fmt, ...)        XPLMDebugString(fmt, __VA_ARGS__)
 # endif
 #endif
+
+enum {
+    P1_THREAD_ID,
+    P2_THREAD_ID,
+    CP1_THREAD_ID,
+    CP2_THREAD_ID
+};
 
 
 #ifdef __cplusplus
