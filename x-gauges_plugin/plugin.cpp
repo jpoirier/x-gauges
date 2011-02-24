@@ -47,40 +47,40 @@ static const float FL_CB_INTERVAL = -1.0;
 
 /*
 sim/cockpit2/gauges/indicators/compass_heading_deg_mag		    float	n	degrees_magnetic	Indicated heading of the wet compass, in degrees.
-sim/cockpit2/gauges/indicators/airspeed_kts_pilot		            float	n	knots			Indicated airspeed in knots, pilot.
-sim/cockpit2/gauges/indicators/airspeed_kts_copilot		        float	n	knots			Indicated airspeed in knots, copilot.
-sim/cockpit2/gauges/indicators/altitude_ft_pilot		            float	n	feet			Indicated height, MSL, in feet, primary system, based on pilots barometric pressure input.
-sim/cockpit2/gauges/indicators/altitude_ft_copilot		        float	n	feet			Indicated height, MSL, in feet, primary system, based on co-pilots barometric pressure input.
-sim/cockpit2/gauges/indicators/vvi_fpm_pilot			            float	n	feet/minute		Indicated vertical speed in feet per minute, pilot system.
-sim/cockpit2/gauges/indicators/vvi_fpm_copilot			        float	n	feet/minute		Indicated vertical speed in feet per minute, copilot system.
-sim/cockpit2/gauges/indicators/turn_rate_roll_deg_pilot		    float	n	degrees			Indicated rate-of-turn, in degrees deflection, for newer roll-augmented turn-indicators.  Pilot side.
-sim/cockpit2/gauges/indicators/turn_rate_roll_deg_copilot	    float	n	degrees			Indicated rate-of-turn, in degrees deflection, for newer roll-augmented turn-indicators.  Copilot side.
-sim/cockpit2/gauges/indicators/turn_rate_heading_deg_pilot	    float	n	degrees			Indicated rate-of-turn, in degrees deflection, for old-style turn-indicators.  Pilot side.
-sim/cockpit2/gauges/indicators/turn_rate_heading_deg_copilot	    float	n	degrees			Indicated rate-of-turn, in degrees deflection, for old-style turn-indicators.  Copiot side.
+sim/cockpit2/gauges/indicators/airspeed_kts_pilot		            float	n	knots			    Indicated airspeed in knots, pilot.
+sim/cockpit2/gauges/indicators/airspeed_kts_copilot		        float	n	knots			    Indicated airspeed in knots, copilot.
+sim/cockpit2/gauges/indicators/altitude_ft_pilot		            float	n	feet			    Indicated height, MSL, in feet, primary system, based on pilots barometric pressure input.
+sim/cockpit2/gauges/indicators/altitude_ft_copilot		        float	n	feet			    Indicated height, MSL, in feet, primary system, based on co-pilots barometric pressure input.
+sim/cockpit2/gauges/indicators/vvi_fpm_pilot			            float	n	feet/minute		    Indicated vertical speed in feet per minute, pilot system.
+sim/cockpit2/gauges/indicators/vvi_fpm_copilot			        float	n	feet/minute		    Indicated vertical speed in feet per minute, copilot system.
+sim/cockpit2/gauges/indicators/turn_rate_roll_deg_pilot		    float	n	degrees			    Indicated rate-of-turn, in degrees deflection, for newer roll-augmented turn-indicators.  Pilot side.
+sim/cockpit2/gauges/indicators/turn_rate_roll_deg_copilot	    float	n	degrees			    Indicated rate-of-turn, in degrees deflection, for newer roll-augmented turn-indicators.  Copilot side.
+sim/cockpit2/gauges/indicators/turn_rate_heading_deg_pilot	    float	n	degrees			    Indicated rate-of-turn, in degrees deflection, for old-style turn-indicators.  Pilot side.
+sim/cockpit2/gauges/indicators/turn_rate_heading_deg_copilot	    float	n	degrees			    Indicated rate-of-turn, in degrees deflection, for old-style turn-indicators.  Copiot side.
 sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot	    float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: AHARS.  Side: Pilot
 sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot	    float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: AHARS.  Side: Copilot
 sim/cockpit2/gauges/indicators/heading_electric_deg_mag_pilot	float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: electric gyro.  Side: Pilot
 sim/cockpit2/gauges/indicators/heading_electric_deg_mag_copilot	float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: electric gyro.  Side: Copilot
 sim/cockpit2/gauges/indicators/heading_vacuum_deg_mag_pilot	    float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: vacuum gyro.  Side: Pilot
 sim/cockpit2/gauges/indicators/heading_vacuum_deg_mag_copilot	float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: vacuum gyro.  Side: Copilot
-sim/cockpit2/gauges/indicators/pitch_AHARS_deg_pilot		        float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: AHARS.  Side: Pilot
-sim/cockpit2/gauges/indicators/pitch_AHARS_deg_copilot		    float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: AHARS.  Side: Copilot
-sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot		    float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: electric gyro.  Side: Pilot
-sim/cockpit2/gauges/indicators/pitch_electric_deg_copilot	    float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: electric gyro.  Side: Copilot
-sim/cockpit2/gauges/indicators/pitch_vacuum_deg_pilot		    float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: vacuum gyro.  Side: Pilot
-sim/cockpit2/gauges/indicators/pitch_vacuum_deg_copilot		    float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: vacuum gyro.  Side: Copilot
-sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot	float	n	feet			Radio-altimeter indicated height in feet, pilot-side
-sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot float	n	feet			Radio-altimeter indicated height in feet, pilot-side
-sim/cockpit2/gauges/indicators/radio_altimeter_dh_lit_pilot	    int	    n	boolean			Radio-altimeter indicated height in feet, pilot-side
-sim/cockpit2/gauges/indicators/radio_altimeter_dh_lit_copilot	int	    n	boolean			Radio-altimeter indicated height in feet, pilot-side
-sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot		        float	n	degrees			Indicated roll, in degrees, positive right.  Source: AHARS.  Side: Pilot
-sim/cockpit2/gauges/indicators/roll_AHARS_deg_copilot		    float	n	degrees			Indicated roll, in degrees, positive right.  Source: AHARS.  Side: Copilot
-sim/cockpit2/gauges/indicators/roll_electric_deg_pilot		    float	n	degrees			Indicated roll, in degrees, positive right.  Source: electric gyro.  Side: Pilot
-sim/cockpit2/gauges/indicators/roll_electric_deg_copilot	        float	n	degrees			Indicated roll, in degrees, positive right.  Source: electric gyro.  Side: Copilot
-sim/cockpit2/gauges/indicators/roll_vacuum_deg_pilot		        float	n	degrees			Indicated roll, in degrees, positive right.  Source: vacuum gyro.  Side: Pilot
-sim/cockpit2/gauges/indicators/roll_vacuum_deg_copilot		    float	n	degrees			Indicated roll, in degrees, positive right.	 Source: vacuum gyro.  Side: Copilot
+sim/cockpit2/gauges/indicators/pitch_AHARS_deg_pilot		        float	n	degrees			    Indicated pitch, in degrees, psoitive up.  Source: AHARS.  Side: Pilot
+sim/cockpit2/gauges/indicators/pitch_AHARS_deg_copilot		    float	n	degrees			    Indicated pitch, in degrees, psoitive up.  Source: AHARS.  Side: Copilot
+sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot		    float	n	degrees			    Indicated pitch, in degrees, psoitive up.  Source: electric gyro.  Side: Pilot
+sim/cockpit2/gauges/indicators/pitch_electric_deg_copilot	    float	n	degrees			    Indicated pitch, in degrees, psoitive up.  Source: electric gyro.  Side: Copilot
+sim/cockpit2/gauges/indicators/pitch_vacuum_deg_pilot		    float	n	degrees			    Indicated pitch, in degrees, psoitive up.  Source: vacuum gyro.  Side: Pilot
+sim/cockpit2/gauges/indicators/pitch_vacuum_deg_copilot		    float	n	degrees			    Indicated pitch, in degrees, psoitive up.  Source: vacuum gyro.  Side: Copilot
+sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot	float	n	feet			    Radio-altimeter indicated height in feet, pilot-side
+sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot float	n	feet			    Radio-altimeter indicated height in feet, pilot-side
+sim/cockpit2/gauges/indicators/radio_altimeter_dh_lit_pilot	    int	    n	boolean			    Radio-altimeter indicated height in feet, pilot-side
+sim/cockpit2/gauges/indicators/radio_altimeter_dh_lit_copilot	int	    n	boolean			    Radio-altimeter indicated height in feet, pilot-side
+sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot		        float	n	degrees			    Indicated roll, in degrees, positive right.  Source: AHARS.  Side: Pilot
+sim/cockpit2/gauges/indicators/roll_AHARS_deg_copilot		    float	n	degrees			    Indicated roll, in degrees, positive right.  Source: AHARS.  Side: Copilot
+sim/cockpit2/gauges/indicators/roll_electric_deg_pilot		    float	n	degrees			    Indicated roll, in degrees, positive right.  Source: electric gyro.  Side: Pilot
+sim/cockpit2/gauges/indicators/roll_electric_deg_copilot	        float	n	degrees			    Indicated roll, in degrees, positive right.  Source: electric gyro.  Side: Copilot
+sim/cockpit2/gauges/indicators/roll_vacuum_deg_pilot		        float	n	degrees			    Indicated roll, in degrees, positive right.  Source: vacuum gyro.  Side: Pilot
+sim/cockpit2/gauges/indicators/roll_vacuum_deg_copilot		    float	n	degrees			    Indicated roll, in degrees, positive right.	 Source: vacuum gyro.  Side: Copilot
 sim/cockpit2/gauges/indicators/wind_heading_deg_mag		        float	n	degrees_magnetic	Wind direction currently acting on the plane, in degrees magnetic.
-sim/cockpit2/gauges/indicators/wind_speed_kts			            float	n	knots			Wind speed currently acting on the plane, in knots true.
+sim/cockpit2/gauges/indicators/wind_speed_kts			            float	n	knots			    Wind speed currently acting on the plane, in knots true.
 
 sim/cockpit2/engine/indicators/engine_speed_rpm	                float[8]	n	revolutions/minute	Engine speed, radians per second
 sim/cockpit2/engine/indicators/prop_speed_rpm	                    float[8]	n	revolutions/minute	Prop speed, radians per second
@@ -122,44 +122,6 @@ XPLMCommandRef roll_vacuum_deg_pilot_ref;
 XPLMCommandRef roll_vacuum_deg_copilot_ref;
 XPLMCommandRef wind_heading_deg_mag_ref;
 XPLMCommandRef wind_speed_kts_ref;
-
-float systems_avionics_on;
-float systems_avionics_off;
-float compass_heading_deg_mag;
-float airspeed_kts_pilot;
-float airspeed_kts_copilot;
-float altitude_ft_pilot;
-float altitude_ft_copilot;
-float vvi_fpm_pilot;
-float vvi_fpm_copilot;
-float turn_rate_roll_deg_pilot;
-float turn_rate_roll_deg_copilot;
-float turn_rate_heading_deg_pilot;
-float turn_rate_heading_deg_copilot;
-float heading_AHARS_deg_mag_pilot;
-float heading_AHARS_deg_mag_copilot;
-float heading_electric_deg_mag_pilot;
-float heading_electric_deg_mag_copilot;
-float heading_vacuum_deg_mag_pilot;
-float heading_vacuum_deg_mag_copilot;
-float pitch_AHARS_deg_pilot;
-float pitch_AHARS_deg_copilot;
-float pitch_electric_deg_pilot;
-float pitch_electric_deg_copilot;
-float pitch_vacuum_deg_pilot;
-float pitch_vacuum_deg_copilot;
-float radio_altimeter_height_ft_pilot;
-float radio_altimeter_height_ft_copilot;
-float radio_altimeter_dh_lit_pilot;
-float radio_altimeter_dh_lit_copilot;
-float roll_AHARS_deg_pilot;
-float roll_AHARS_deg_copilot;
-float roll_electric_deg_pilot;
-float roll_electric_deg_copilot;
-float roll_vacuum_deg_pilot;
-float roll_vacuum_deg_copilot;
-float wind_heading_deg_mag;
-float wind_speed_kts;
 
 string gP1_ip = " ";
 string gP1_port = " ";
@@ -299,52 +261,52 @@ float FlightLoopCallback(float  inElapsedSinceLastCall,
     }
 
     // Pilot gauge info
-    GaugeInfo* p = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-    p->systems_avionics_on = XPLMGetDataf(systems_avionics_on_ref);
-    p->systems_avionics_off = XPLMGetDataf(systems_avionics_off_ref);
-    p->compass_heading_deg_mag = XPLMGetDataf(compass_heading_deg_mag_ref);
-    p->airspeed_kts = XPLMGetDataf(airspeed_kts_pilot_ref);
-    p->altitude_ft = XPLMGetDataf(altitude_ft_pilot_ref);
-    p->vvi_fpm = XPLMGetDataf(vvi_fpm_pilot_ref);
-    p->turn_rate_roll_deg = XPLMGetDataf(turn_rate_roll_deg_pilot_ref);
-    p->turn_rate_heading_deg = XPLMGetDataf(turn_rate_heading_deg_pilot_ref);
-    p->heading_AHARS_deg_mag = XPLMGetDataf(heading_AHARS_deg_mag_pilot_ref);
-    p->heading_electric_deg_mag = XPLMGetDataf(heading_electric_deg_mag_pilot_ref);
-    p->heading_vacuum_deg_mag = XPLMGetDataf(heading_vacuum_deg_mag_pilot_ref);
-    p->pitch_AHARS_deg = XPLMGetDataf(pitch_AHARS_deg_pilot_ref);
-    p->pitch_electric_deg = XPLMGetDataf(pitch_electric_deg_pilot_ref);
-    p->pitch_vacuum_deg = XPLMGetDataf(pitch_vacuum_deg_pilot_ref);
-    p->radio_altimeter_height_ft = XPLMGetDataf(radio_altimeter_height_ft_pilot_ref);
-    p->radio_altimeter_dh_lit = XPLMGetDataf(radio_altimeter_dh_lit_pilot_ref);
-    p->roll_AHARS_deg = XPLMGetDataf(roll_AHARS_deg_pilot_ref);
-    p->roll_electric_deg = XPLMGetDataf(roll_electric_deg_pilot_ref);
-    p->roll_vacuum_deg = XPLMGetDataf(roll_vacuum_deg_pilot_ref);
-    p->wind_heading_deg_mag = XPLMGetDataf(wind_heading_deg_mag_ref);
-    p->wind_speed_kts = XPLMGetDataf(wind_speed_kts_ref);
+    GaugeInfo* p                    = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+    p->systems_avionics_on          = XPLMGetDataf(systems_avionics_on_ref);
+    p->systems_avionics_off         = XPLMGetDataf(systems_avionics_off_ref);
+    p->compass_heading_deg_mag      = XPLMGetDataf(compass_heading_deg_mag_ref);
+    p->airspeed_kts                 = XPLMGetDataf(airspeed_kts_pilot_ref);
+    p->altitude_ft                  = XPLMGetDataf(altitude_ft_pilot_ref);
+    p->vvi_fpm                      = XPLMGetDataf(vvi_fpm_pilot_ref);
+    p->turn_rate_roll_deg           = XPLMGetDataf(turn_rate_roll_deg_pilot_ref);
+    p->turn_rate_heading_deg        = XPLMGetDataf(turn_rate_heading_deg_pilot_ref);
+    p->heading_AHARS_deg_mag        = XPLMGetDataf(heading_AHARS_deg_mag_pilot_ref);
+    p->heading_electric_deg_mag     = XPLMGetDataf(heading_electric_deg_mag_pilot_ref);
+    p->heading_vacuum_deg_mag       = XPLMGetDataf(heading_vacuum_deg_mag_pilot_ref);
+    p->pitch_AHARS_deg              = XPLMGetDataf(pitch_AHARS_deg_pilot_ref);
+    p->pitch_electric_deg           = XPLMGetDataf(pitch_electric_deg_pilot_ref);
+    p->pitch_vacuum_deg             = XPLMGetDataf(pitch_vacuum_deg_pilot_ref);
+    p->radio_altimeter_height_ft    = XPLMGetDataf(radio_altimeter_height_ft_pilot_ref);
+    p->radio_altimeter_dh_lit       = XPLMGetDataf(radio_altimeter_dh_lit_pilot_ref);
+    p->roll_AHARS_deg               = XPLMGetDataf(roll_AHARS_deg_pilot_ref);
+    p->roll_electric_deg            = XPLMGetDataf(roll_electric_deg_pilot_ref);
+    p->roll_vacuum_deg              = XPLMGetDataf(roll_vacuum_deg_pilot_ref);
+    p->wind_heading_deg_mag         = XPLMGetDataf(wind_heading_deg_mag_ref);
+    p->wind_speed_kts               = XPLMGetDataf(wind_speed_kts_ref);
 
     // CoPilot gauge info
-    GaugeInfo* cp = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-    cp->systems_avionics_on = XPLMGetDataf(systems_avionics_on_ref);
-    cp->systems_avionics_off = XPLMGetDataf(systems_avionics_off_ref);
-    cp->compass_heading_deg_mag = XPLMGetDataf(compass_heading_deg_mag_ref);
-    cp->airspeed_kts = XPLMGetDataf(airspeed_kts_copilot_ref);
-    cp->altitude_ft = XPLMGetDataf(altitude_ft_copilot_ref);
-    cp->vvi_fpm = XPLMGetDataf(vvi_fpm_copilot_ref);
-    cp->turn_rate_roll_deg = XPLMGetDataf(turn_rate_roll_deg_copilot_ref);
-    cp->turn_rate_heading_deg = XPLMGetDataf(turn_rate_heading_deg_copilot_ref);
-    cp->heading_AHARS_deg_mag = XPLMGetDataf(heading_AHARS_deg_mag_copilot_ref);
-    cp->heading_electric_deg_mag = XPLMGetDataf(heading_electric_deg_mag_copilot_ref);
-    cp->heading_vacuum_deg_mag = XPLMGetDataf(heading_vacuum_deg_mag_copilot_ref);
-    cp->pitch_AHARS_deg = XPLMGetDataf(pitch_AHARS_deg_copilot_ref);
-    cp->pitch_electric_deg = XPLMGetDataf(pitch_electric_deg_copilot_ref);
-    cp->pitch_vacuum_deg = XPLMGetDataf(pitch_vacuum_deg_copilot_ref);
-    cp->radio_altimeter_height_ft = XPLMGetDataf(radio_altimeter_height_ft_copilot_ref);
-    cp->radio_altimeter_dh_lit = XPLMGetDataf(radio_altimeter_dh_lit_copilot_ref);
-    cp->roll_AHARS_deg = XPLMGetDataf(roll_AHARS_deg_copilot_ref);
-    cp->roll_electric_deg = XPLMGetDataf(roll_electric_deg_copilot_ref);
-    cp->roll_vacuum_deg = XPLMGetDataf(roll_vacuum_deg_copilot_ref);
-    cp->wind_heading_deg_mag = XPLMGetDataf(wind_heading_deg_mag_ref);
-    cp->wind_speed_kts = XPLMGetDataf(wind_speed_kts_ref);
+    GaugeInfo* cp                   = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+    cp->systems_avionics_on         = XPLMGetDataf(systems_avionics_on_ref);
+    cp->systems_avionics_off        = XPLMGetDataf(systems_avionics_off_ref);
+    cp->compass_heading_deg_mag     = XPLMGetDataf(compass_heading_deg_mag_ref);
+    cp->airspeed_kts                = XPLMGetDataf(airspeed_kts_copilot_ref);
+    cp->altitude_ft                 = XPLMGetDataf(altitude_ft_copilot_ref);
+    cp->vvi_fpm                     = XPLMGetDataf(vvi_fpm_copilot_ref);
+    cp->turn_rate_roll_deg          = XPLMGetDataf(turn_rate_roll_deg_copilot_ref);
+    cp->turn_rate_heading_deg       = XPLMGetDataf(turn_rate_heading_deg_copilot_ref);
+    cp->heading_AHARS_deg_mag       = XPLMGetDataf(heading_AHARS_deg_mag_copilot_ref);
+    cp->heading_electric_deg_mag    = XPLMGetDataf(heading_electric_deg_mag_copilot_ref);
+    cp->heading_vacuum_deg_mag      = XPLMGetDataf(heading_vacuum_deg_mag_copilot_ref);
+    cp->pitch_AHARS_deg             = XPLMGetDataf(pitch_AHARS_deg_copilot_ref);
+    cp->pitch_electric_deg          = XPLMGetDataf(pitch_electric_deg_copilot_ref);
+    cp->pitch_vacuum_deg            = XPLMGetDataf(pitch_vacuum_deg_copilot_ref);
+    cp->radio_altimeter_height_ft   = XPLMGetDataf(radio_altimeter_height_ft_copilot_ref);
+    cp->radio_altimeter_dh_lit      = XPLMGetDataf(radio_altimeter_dh_lit_copilot_ref);
+    cp->roll_AHARS_deg              = XPLMGetDataf(roll_AHARS_deg_copilot_ref);
+    cp->roll_electric_deg           = XPLMGetDataf(roll_electric_deg_copilot_ref);
+    cp->roll_vacuum_deg             = XPLMGetDataf(roll_vacuum_deg_copilot_ref);
+    cp->wind_heading_deg_mag        = XPLMGetDataf(wind_heading_deg_mag_ref);
+    cp->wind_speed_kts              = XPLMGetDataf(wind_speed_kts_ref);
 
     gFlCbCnt++;
 
