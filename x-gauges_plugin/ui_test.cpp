@@ -47,34 +47,34 @@ static const float FL_CB_INTERVAL = -1.0;
 
 string gP1_ip = " ";
 string gP1_port = " ";
-string gP1_enabled = " ";
+string gP1_enabled = '0';
 string gP2_ip = " ";
 string gP2_port = " ";
-string gP2_enabled = " ";
+string gP2_enabled = '0';
 string gCp1_ip = " ";
 string gCp1_port = " ";
-string gCp1_enabled = " ";
+string gCp1_enabled = '0';
 string gCp2_ip = " ";
 string gCp2_port = " ";
-string gCp2_enabled = " ";
+string gCp2_enabled = '0';
 
 
 PLUGIN_API int
 XPluginStart(char* outName, char* outSig, char* outDesc) {
 
-    DPRINTF("X-Gauges Plugin: XPluginStart\n");
+    DPRINTF("X-Gauges Plugin: starting XPluginStart\n");
 
     strcpy(outName, "X-Gauges");
     strcpy(outSig , "jdp.x-gauges");
     strcpy(outDesc, "X-Gauges Plugin.");
 
-    DPRINTF("X-Gauges Plugin: read config\n");
+    DPRINTF("X-Gauges Plugin: calling read_config\n");
     read_config();
 
-    DPRINTF("X-Gauges Plugin: ui create\n");
+    DPRINTF("X-Gauges Plugin: calling ui_create\n");
     ui_create();
 
-    DPRINTF("X-Gauges Plugin: load complete\n");
+    DPRINTF("X-Gauges Plugin: ending XPluginStart\n");
     return true;
 }
 
@@ -83,7 +83,7 @@ PLUGIN_API int
 XPluginEnable(void) {
 
     gEnabled = true;
-    DPRINTF("X-Gauges: enabled\n");
+    DPRINTF("X-Gauges: XPluginEnable\n");
 
     // register flight loop callbacks
 //  XPLMRegisterFlightLoopCallback(
@@ -115,7 +115,7 @@ XPluginReceiveMessage(XPLMPluginID  inFromWho,
 PLUGIN_API void
 XPluginDisable(void) {
 
-    DPRINTF("X-Gauges: disabled\n");
+    DPRINTF("X-Gauges: XPluginDisable\n");
 
     gEnabled = false;
     XPLMUnregisterFlightLoopCallback(plugin_callback, NULL);

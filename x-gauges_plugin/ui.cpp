@@ -37,7 +37,6 @@ void menu_handler(void* mRef, void* iRef);
 void ui_kill(void);
 void menu_kill(void);
 void ui_hide(void);
-void widget_fields(void);
 
 USING_PTYPES
 
@@ -46,6 +45,11 @@ USING_PTYPES
 
 #define ISNOT_ROOT      0
 #define IS_ROOT         1
+
+#define UI_X            300
+#define UI_Y            650
+#define UI_WIDTH        370
+#define UI_HEIGHT       250
 
 
 static int gMenuVisible = false;
@@ -131,49 +135,13 @@ void menu_handler(void* mRef, void* iRef) {
     if (!strcmp((char*) iRef, "Network Settings")) {
 		if (!gMenuWidget) {
             gMenuWidget = true;
-            //             x,   y,   w,   h
-            create_widget(300, 650, 370, 250);
-            widget_fields();
+            create_widget(UI_X, UI_Y, UI_WIDTH, UI_HEIGHT);
 		} else if (!XPIsWidgetVisible(gSettingsWidget)) {
-            widget_fields();
             XPShowWidget(gSettingsWidget);
 		}
 
 		gMenuVisible = true;
     }
-}
-
-void widget_fields(void) {
-
-//	int i;
-//	char buf[80];
-
-//	// recv_port
-//	sprintf(buf, "%d", recv_port);
-//	XPSetWidgetDescriptor(src_port_textbox, buf);
-
-//	// nav_data_rate
-//	sprintf(buf, "%ld", nav_data_rate);
-//	XPSetWidgetDescriptor(nav_rate_textbox, buf);
-
-//	// fms_data_rate
-//	sprintf(buf, "%ld", fms_data_rate);
-//	XPSetWidgetDescriptor(fms_rate_textbox, buf);
-
-//	// tcas_data_rate
-//	sprintf(buf, "%ld", tcas_data_rate);
-//	XPSetWidgetDescriptor(tcas_rate_textbox, buf);
-
-//	// dest
-//	for (i = 0; i < NUM_DEST; i++) {
-//		// enable
-//		XPSetWidgetProperty(dest_enable_checkbox[i], xpProperty_ButtonState, dest_enable[i]);
-//		// ip
-//		XPSetWidgetDescriptor(dest_ip_textbox[i], dest_ip[i]);
-//		// port
-//		sprintf(buf, "%d", dest_port[i]);
-//		XPSetWidgetDescriptor(dest_port_textbox[i], buf);
-//	}
 }
 
 // define the handler before it is used
@@ -203,7 +171,7 @@ int callback_handler(XPWidgetMessage    inMessage,
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gPilot1Port, buffer, sizeof(buffer));
             gP1_port = string(buffer);
-//            gP1_enabled = itostring((int) XPGetWidgetProperty(gPilot1Chkbox, xpProperty_ButtonState, NULL));
+            gP1_enabled = itostring((int) XPGetWidgetProperty(gPilot1Chkbox, xpProperty_ButtonState, NULL));
 
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gPilot2Ip, buffer, sizeof(buffer));
@@ -211,7 +179,7 @@ int callback_handler(XPWidgetMessage    inMessage,
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gPilot2Port, buffer, sizeof(buffer));
             gP2_port = string(buffer);
-//            gP2_enabled = itostring((int) XPGetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonState, NULL));
+            gP2_enabled = itostring((int) XPGetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonState, NULL));
 
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gCopilot1Ip, buffer, sizeof(buffer));
@@ -219,7 +187,7 @@ int callback_handler(XPWidgetMessage    inMessage,
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gCopilot1Port, buffer, sizeof(buffer));
             gCp1_port = string(buffer);
-//            gCp1_enabled = itostring((int) XPGetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonState, NULL));
+            gCp1_enabled = itostring((int) XPGetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonState, NULL));
 
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gCopilot2Ip, buffer, sizeof(buffer));
@@ -227,7 +195,7 @@ int callback_handler(XPWidgetMessage    inMessage,
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gCopilot2Port, buffer, sizeof(buffer));
             gCp2_port = string(buffer);
-//            gCp2_enabled = itostring((int) XPGetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonState, NULL));
+            gCp2_enabled = itostring((int) XPGetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonState, NULL));
         }
 	}
 
@@ -236,8 +204,6 @@ int callback_handler(XPWidgetMessage    inMessage,
 
 
 void create_widget(int x, int y, int w, int h) {
-
-    DPRINTF("X-Gauges: creating ui\n");
 
     int x2 = x + w;
     int y2 = y - h;
@@ -255,7 +221,6 @@ void create_widget(int x, int y, int w, int h) {
 	gInfoLabel2 = XPCreateWidget(x+220, y-40, x+280, y-60, IS_VISIBLE, "PORT", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Caption);
 	gInfoLabel3 = XPCreateWidget(x+300, y-40, x+370, y-60, IS_VISIBLE, "ENABLE", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Caption);
 
-// stringtoi(gP1_enabled)
     // Pilot 1
 	gPilot1Label = XPCreateWidget(x+20, y-60, x+70, y-80, IS_VISIBLE, "PILOT   1: ", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Caption);
     gPilot1Ip = XPCreateWidget(x+90, y-60, x+200, y-80, IS_VISIBLE, gP1_ip, ISNOT_ROOT, gSettingsWidget, xpWidgetClass_TextField);
@@ -269,7 +234,7 @@ void create_widget(int x, int y, int w, int h) {
     gPilot1Chkbox = XPCreateWidget(x+300, y-60, x+340, y-80, IS_VISIBLE, "", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Button);
     XPSetWidgetProperty(gPilot1Chkbox, xpProperty_ButtonType, xpButtonBehaviorCheckBox);
     XPSetWidgetProperty(gPilot1Chkbox, xpProperty_ButtonBehavior, xpButtonBehaviorCheckBox);
-    XPSetWidgetProperty(gPilot1Chkbox, xpProperty_ButtonState, true);
+    XPSetWidgetProperty(gPilot1Chkbox, xpProperty_ButtonState, (long)stringtoi(gP1_enabled));
 
     // Pilot 2
 	gPilot2Label = XPCreateWidget(x+20, y-80, x+70, y-100, IS_VISIBLE, "PILOT   2: ", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Caption);
@@ -281,10 +246,10 @@ void create_widget(int x, int y, int w, int h) {
     XPSetWidgetProperty(gPilot2Port, xpProperty_TextFieldType, xpTextEntryField);
     XPSetWidgetProperty(gPilot2Port, xpProperty_Enabled, true);
 
-//    gPilot2Chkbox = XPCreateWidget(x+300, y-80, x+340, y-100, IS_VISIBLE, "", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Button);
-//    XPSetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonType, xpButtonBehaviorCheckBox);
-//    XPSetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonBehavior, xpButtonBehaviorCheckBox);
-//    XPSetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonState, stringtoi(gP2_enabled));
+    gPilot2Chkbox = XPCreateWidget(x+300, y-80, x+340, y-100, IS_VISIBLE, "", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Button);
+    XPSetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonType, xpButtonBehaviorCheckBox);
+    XPSetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonBehavior, xpButtonBehaviorCheckBox);
+    XPSetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonState, (long)stringtoi(gP2_enabled));
 
     // CoPilot 1
 	gCopilot1Label = XPCreateWidget(x+20, y-110, x+70, y-130, IS_VISIBLE, "COPILOT 1: ", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Caption);
@@ -296,10 +261,10 @@ void create_widget(int x, int y, int w, int h) {
     XPSetWidgetProperty(gCopilot1Port, xpProperty_TextFieldType, xpTextEntryField);
     XPSetWidgetProperty(gCopilot1Port, xpProperty_Enabled, true);
 
-//    gCopilot1Chkbox = XPCreateWidget(x+300, y-110, x+340, y-130, IS_VISIBLE, "", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Button);
-//    XPSetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonType, xpButtonBehaviorCheckBox);
-//    XPSetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonBehavior, xpButtonBehaviorCheckBox);
-//    XPSetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonState, stringtoi(gCp1_enabled));
+    gCopilot1Chkbox = XPCreateWidget(x+300, y-110, x+340, y-130, IS_VISIBLE, "", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Button);
+    XPSetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonType, xpButtonBehaviorCheckBox);
+    XPSetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonBehavior, xpButtonBehaviorCheckBox);
+    XPSetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonState, (long)stringtoi(gCp1_enabled));
 
     // CoPilot 2
 	gCopilot2Label = XPCreateWidget(x+20, y-130, x+70, y-150, IS_VISIBLE, "COPILOT 2: ", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Caption);
@@ -311,10 +276,10 @@ void create_widget(int x, int y, int w, int h) {
     XPSetWidgetProperty(gCopilot2Port, xpProperty_TextFieldType, xpTextEntryField);
     XPSetWidgetProperty(gCopilot2Port, xpProperty_Enabled, true);
 
-//    gCopilot2Chkbox = XPCreateWidget(x+300, y-130, x+340, y-150, IS_VISIBLE, "", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Button);
-//    XPSetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonType, xpButtonBehaviorCheckBox);
-//    XPSetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonBehavior, xpButtonBehaviorCheckBox);
-//    XPSetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonState, stringtoi(gCp2_enabled));
+    gCopilot2Chkbox = XPCreateWidget(x+300, y-130, x+340, y-150, IS_VISIBLE, "", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Button);
+    XPSetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonType, xpButtonBehaviorCheckBox);
+    XPSetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonBehavior, xpButtonBehaviorCheckBox);
+    XPSetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonState, (long)stringtoi(gCp2_enabled));
 
 	// Apply and Exit buttons
 	gApplyButton = XPCreateWidget(x+90, y-210, x+150, y-230, IS_VISIBLE, "Apply", ISNOT_ROOT, gSettingsWidget, xpWidgetClass_Button);
