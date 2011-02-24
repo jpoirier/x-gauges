@@ -23,32 +23,11 @@
 #include "client_thread.h"
 #include "plugin.h"
 
-float RadioPanelFlightLoopCallback(float inElapsedSinceLastCall,
-                                   float inElapsedTimeSinceLastFlightLoop,
-                                   int inCounter,
-                                   void* inRefcon);
+float FlightLoopCallback(float inElapsedSinceLastCall,
+                         float inElapsedTimeSinceLastFlightLoop,
+                         int inCounter,
+                         void* inRefcon);
 
-float MultiPanelFlightLoopCallback(float inElapsedSinceLastCall,
-                                   float inElapsedTimeSinceLastFlightLoop,
-                                   int inCounter,
-                                   void* inRefcon);
-
-float SwitchPanelFlightLoopCallback(float inElapsedSinceLastCall,
-                                    float inElapsedTimeSinceLastFlightLoop,
-                                    int inCounter,
-                                    void* inRefcon);
-
-int RadioPanelCommandHandler(XPLMCommandRef inCommand,
-                             XPLMCommandPhase inPhase,
-                             void* inRefcon);
-
-int MultiPanelCommandHandler(XPLMCommandRef inCommand,
-                             XPLMCommandPhase inPhase,
-                             void* inRefcon);
-
-int SwitchPanelCommandHandler(XPLMCommandRef inCommand,
-                              XPLMCommandPhase inPhase,
-                              void* inRefcon);
 
 /*
 
@@ -59,51 +38,142 @@ sim/aircraft/specialcontrols/acf_ail1flaps
 
 USING_PTYPES
 
-enum {
-    CMD_SYS_AVIONICS_ON,
-    CMD_SYS_AVIONICS_OFF,
-    CMD_SYS_AVIONICS_TOGGLE,
-    CMD_FLTCTL_FLAPS_UP,
-    CMD_FLTCTL_FLAPS_DOWN,
-    CMD_FLTCTL_PITCHTRIM_UP,
-    CMD_FLTCTL_PITCHTRIM_DOWN,
-    CMD_FLTCTL_PITCHTRIM_TAKEOFF,
-    CMD_OTTO_AUTOTHROTTLE_ON,
-    CMD_OTTO_AUTOTHROTTLE_OFF,
-    CMD_OTTO_AUTOTHROTTLE_TOGGLE,
-    CMD_OTTO_HEADING,
-    CMD_OTTO_NAV,
-    CMD_OTTO_PITCHSYNC,
-    CMD_OTTO_BACK_COURSE,
-    CMD_OTTO_APPROACH,
-    CMD_OTTO_AIRSPEED_UP,
-    CMD_OTTO_AIRSPEED_DOWN,
-    CMD_OTTO_AIRSPEED_SYNC,
-    CMD_OTTO_VERTICALSPEED,
-    CMD_OTTO_VERTICALSPEED_UP,
-    CMD_OTTO_VERTICALSPEED_DOWN,
-    CMD_OTTO_VERTICALSPEED_SYNC,
-    CMD_OTTO_ALTITUDE_HOLD,
-    CMD_OTTO_ALTITUDE_ARM,
-    CMD_OTTO_ALTITUDE_UP,
-    CMD_OTTO_ALTITUDE_DOWN,
-    CMD_OTTO_ALTITUDE_SYNC
-};
-
 bool gPowerUp = true;
 bool gEnabled = false;
 unsigned int gFlCbCnt = 0;
 
 static const float FL_CB_INTERVAL = -1.0;
 
-// data refs
 
-// command refs
-XPLMCommandRef  systems_avionics_on;
-XPLMCommandRef  systems_avionics_off;
+/*
+sim/cockpit2/gauges/indicators/compass_heading_deg_mag		    float	n	degrees_magnetic	Indicated heading of the wet compass, in degrees.
+sim/cockpit2/gauges/indicators/airspeed_kts_pilot		            float	n	knots			Indicated airspeed in knots, pilot.
+sim/cockpit2/gauges/indicators/airspeed_kts_copilot		        float	n	knots			Indicated airspeed in knots, copilot.
+sim/cockpit2/gauges/indicators/altitude_ft_pilot		            float	n	feet			Indicated height, MSL, in feet, primary system, based on pilots barometric pressure input.
+sim/cockpit2/gauges/indicators/altitude_ft_copilot		        float	n	feet			Indicated height, MSL, in feet, primary system, based on co-pilots barometric pressure input.
+sim/cockpit2/gauges/indicators/vvi_fpm_pilot			            float	n	feet/minute		Indicated vertical speed in feet per minute, pilot system.
+sim/cockpit2/gauges/indicators/vvi_fpm_copilot			        float	n	feet/minute		Indicated vertical speed in feet per minute, copilot system.
+sim/cockpit2/gauges/indicators/turn_rate_roll_deg_pilot		    float	n	degrees			Indicated rate-of-turn, in degrees deflection, for newer roll-augmented turn-indicators.  Pilot side.
+sim/cockpit2/gauges/indicators/turn_rate_roll_deg_copilot	    float	n	degrees			Indicated rate-of-turn, in degrees deflection, for newer roll-augmented turn-indicators.  Copilot side.
+sim/cockpit2/gauges/indicators/turn_rate_heading_deg_pilot	    float	n	degrees			Indicated rate-of-turn, in degrees deflection, for old-style turn-indicators.  Pilot side.
+sim/cockpit2/gauges/indicators/turn_rate_heading_deg_copilot	    float	n	degrees			Indicated rate-of-turn, in degrees deflection, for old-style turn-indicators.  Copiot side.
+sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot	    float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: AHARS.  Side: Pilot
+sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot	    float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: AHARS.  Side: Copilot
+sim/cockpit2/gauges/indicators/heading_electric_deg_mag_pilot	float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: electric gyro.  Side: Pilot
+sim/cockpit2/gauges/indicators/heading_electric_deg_mag_copilot	float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: electric gyro.  Side: Copilot
+sim/cockpit2/gauges/indicators/heading_vacuum_deg_mag_pilot	    float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: vacuum gyro.  Side: Pilot
+sim/cockpit2/gauges/indicators/heading_vacuum_deg_mag_copilot	float	n	degrees_magnetic	Indicated magetic heading, in degrees.  Source: vacuum gyro.  Side: Copilot
+sim/cockpit2/gauges/indicators/pitch_AHARS_deg_pilot		        float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: AHARS.  Side: Pilot
+sim/cockpit2/gauges/indicators/pitch_AHARS_deg_copilot		    float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: AHARS.  Side: Copilot
+sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot		    float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: electric gyro.  Side: Pilot
+sim/cockpit2/gauges/indicators/pitch_electric_deg_copilot	    float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: electric gyro.  Side: Copilot
+sim/cockpit2/gauges/indicators/pitch_vacuum_deg_pilot		    float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: vacuum gyro.  Side: Pilot
+sim/cockpit2/gauges/indicators/pitch_vacuum_deg_copilot		    float	n	degrees			Indicated pitch, in degrees, psoitive up.  Source: vacuum gyro.  Side: Copilot
+sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot	float	n	feet			Radio-altimeter indicated height in feet, pilot-side
+sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot float	n	feet			Radio-altimeter indicated height in feet, pilot-side
+sim/cockpit2/gauges/indicators/radio_altimeter_dh_lit_pilot	    int	    n	boolean			Radio-altimeter indicated height in feet, pilot-side
+sim/cockpit2/gauges/indicators/radio_altimeter_dh_lit_copilot	int	    n	boolean			Radio-altimeter indicated height in feet, pilot-side
+sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot		        float	n	degrees			Indicated roll, in degrees, positive right.  Source: AHARS.  Side: Pilot
+sim/cockpit2/gauges/indicators/roll_AHARS_deg_copilot		    float	n	degrees			Indicated roll, in degrees, positive right.  Source: AHARS.  Side: Copilot
+sim/cockpit2/gauges/indicators/roll_electric_deg_pilot		    float	n	degrees			Indicated roll, in degrees, positive right.  Source: electric gyro.  Side: Pilot
+sim/cockpit2/gauges/indicators/roll_electric_deg_copilot	        float	n	degrees			Indicated roll, in degrees, positive right.  Source: electric gyro.  Side: Copilot
+sim/cockpit2/gauges/indicators/roll_vacuum_deg_pilot		        float	n	degrees			Indicated roll, in degrees, positive right.  Source: vacuum gyro.  Side: Pilot
+sim/cockpit2/gauges/indicators/roll_vacuum_deg_copilot		    float	n	degrees			Indicated roll, in degrees, positive right.	 Source: vacuum gyro.  Side: Copilot
+sim/cockpit2/gauges/indicators/wind_heading_deg_mag		        float	n	degrees_magnetic	Wind direction currently acting on the plane, in degrees magnetic.
+sim/cockpit2/gauges/indicators/wind_speed_kts			            float	n	knots			Wind speed currently acting on the plane, in knots true.
 
-logfile* gLogFile;
-char gLogFilePath[512] = {};
+sim/cockpit2/engine/indicators/engine_speed_rpm	                float[8]	n	revolutions/minute	Engine speed, radians per second
+sim/cockpit2/engine/indicators/prop_speed_rpm	                    float[8]	n	revolutions/minute	Prop speed, radians per second
+*/
+XPLMCommandRef systems_avionics_on_ref;
+XPLMCommandRef systems_avionics_off_ref;
+XPLMCommandRef compass_heading_deg_mag_ref;
+XPLMCommandRef airspeed_kts_pilot_ref;
+XPLMCommandRef airspeed_kts_copilot_ref;
+XPLMCommandRef altitude_ft_pilot_ref;
+XPLMCommandRef altitude_ft_copilot_ref;
+XPLMCommandRef vvi_fpm_pilot_ref;
+XPLMCommandRef vvi_fpm_copilot_ref;
+XPLMCommandRef turn_rate_roll_deg_pilot_ref;
+XPLMCommandRef turn_rate_roll_deg_copilot_ref;
+XPLMCommandRef turn_rate_heading_deg_pilot_ref;
+XPLMCommandRef turn_rate_heading_deg_copilot_ref;
+XPLMCommandRef heading_AHARS_deg_mag_pilot_ref;
+XPLMCommandRef heading_AHARS_deg_mag_copilot_ref;
+XPLMCommandRef heading_electric_deg_mag_pilot_ref;
+XPLMCommandRef heading_electric_deg_mag_copilot_ref;
+XPLMCommandRef heading_vacuum_deg_mag_pilot_ref;
+XPLMCommandRef heading_vacuum_deg_mag_copilot_ref;
+XPLMCommandRef pitch_AHARS_deg_pilot_ref;
+XPLMCommandRef pitch_AHARS_deg_copilot_ref;
+XPLMCommandRef pitch_electric_deg_pilot_ref;
+XPLMCommandRef pitch_electric_deg_copilot_ref;
+XPLMCommandRef pitch_vacuum_deg_pilot_ref;
+XPLMCommandRef pitch_vacuum_deg_copilot_ref;
+XPLMCommandRef radio_altimeter_height_ft_pilot_ref;
+XPLMCommandRef radio_altimeter_height_ft_copilot_ref;
+XPLMCommandRef radio_altimeter_dh_lit_pilot_ref;
+XPLMCommandRef radio_altimeter_dh_lit_copilot_ref;
+XPLMCommandRef roll_AHARS_deg_pilot_ref;
+XPLMCommandRef roll_AHARS_deg_copilot_ref;
+XPLMCommandRef roll_electric_deg_pilot_ref;
+XPLMCommandRef roll_electric_deg_copilot_ref;
+XPLMCommandRef roll_vacuum_deg_pilot_ref;
+XPLMCommandRef roll_vacuum_deg_copilot_ref;
+XPLMCommandRef wind_heading_deg_mag_ref;
+XPLMCommandRef wind_speed_kts_ref;
+
+float systems_avionics_on;
+float systems_avionics_off;
+float compass_heading_deg_mag;
+float airspeed_kts_pilot;
+float airspeed_kts_copilot;
+float altitude_ft_pilot;
+float altitude_ft_copilot;
+float vvi_fpm_pilot;
+float vvi_fpm_copilot;
+float turn_rate_roll_deg_pilot;
+float turn_rate_roll_deg_copilot;
+float turn_rate_heading_deg_pilot;
+float turn_rate_heading_deg_copilot;
+float heading_AHARS_deg_mag_pilot;
+float heading_AHARS_deg_mag_copilot;
+float heading_electric_deg_mag_pilot;
+float heading_electric_deg_mag_copilot;
+float heading_vacuum_deg_mag_pilot;
+float heading_vacuum_deg_mag_copilot;
+float pitch_AHARS_deg_pilot;
+float pitch_AHARS_deg_copilot;
+float pitch_electric_deg_pilot;
+float pitch_electric_deg_copilot;
+float pitch_vacuum_deg_pilot;
+float pitch_vacuum_deg_copilot;
+float radio_altimeter_height_ft_pilot;
+float radio_altimeter_height_ft_copilot;
+float radio_altimeter_dh_lit_pilot;
+float radio_altimeter_dh_lit_copilot;
+float roll_AHARS_deg_pilot;
+float roll_AHARS_deg_copilot;
+float roll_electric_deg_pilot;
+float roll_electric_deg_copilot;
+float roll_vacuum_deg_pilot;
+float roll_vacuum_deg_copilot;
+float wind_heading_deg_mag;
+float wind_speed_kts;
+
+string gP1_ip = " ";
+string gP1_port = " ";
+string gP1_enabled = '0';
+string gP2_ip = " ";
+string gP2_port = " ";
+string gP2_enabled = '0';
+string gCp1_ip = " ";
+string gCp1_port = " ";
+string gCp1_enabled = '0';
+string gCp2_ip = " ";
+string gCp2_port = " ";
+string gCp2_enabled = '0';
+
 
 
 /*
@@ -116,10 +186,6 @@ char gLogFilePath[512] = {};
 PLUGIN_API int
 XPluginStart(char* outName, char* outSig, char* outDesc) {
     int tmp;
-//#ifdef __XPTESTING__
-//    gLogFile = new logfile("/Users/SaitekProPanels.log\0", false);
-//    gLogFile->putf("Saitek ProPanels Plugin: XPluginStart\n");
-//#endif
 
     DPRINTF("X-Gauges Plugin: XPluginStart\n");
 
@@ -127,73 +193,47 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
     strcpy(outSig , "jdp.x-gauges");
     strcpy(outDesc, "X-Gauges  Plugin.");
 
-    gApAltHoldRef                       = XPLMFindDataRef("sim/cockpit2/autopilot/altitude_hold_ft");
-    gApVsHoldRef                        = XPLMFindDataRef("sim/cockpit2/autopilot/vvi_dial_fpm");
-    gApIasHoldRef                       = XPLMFindDataRef("sim/cockpit2/autopilot/airspeed_dial_kts_mach");
-    gApHdgHoldRef                       = XPLMFindDataRef("sim/cockpit2/autopilot/heading_dial_deg_mag_pilot");
-//    gApCrsHoldRef                       = XPLMFindDataRef();
-    gApStateRef                         = XPLMFindDataRef("sim/cockpit/autopilot/autopilot_state");
-    gApAutoThrottleRef                  = XPLMFindDataRef("sim/cockpit2/autopilot/autothrottle_enabled");
-    gApElevTrimRef                      = XPLMFindDataRef("sim/flightmodel/controls/elv_trim");
-//    gApElevTrimUpAnnuncRef                 = XPLMFindDataRef("sim/cockpit2/annunciators/autopilot_trim_up");
-//    gApElevTrimDownAnnuncRef               = XPLMFindDataRef("sim/cockpit2/annunciators/autopilot_trim_down");
-    gApMaxElevTrimRef                   = XPLMFindDataRef("sim/aircraft/controls/acf_max_trim_elev");
+    systems_avionics_on_ref                 = XPLMFindDataRef("sim/systems/avionics_on","Avionics on");
+    systems_avionics_off_ref                = XPLMFindDataRef("sim/systems/avionics_off","Avionics off");
+    compass_heading_deg_mag_ref             = XPLMFindDataRef("sim/cockpit2/gauges/indicators/compass_heading_deg_mag");
+    airspeed_kts_pilot_ref                  = XPLMFindDataRef("sim/cockpit2/gauges/indicators/airspeed_kts_pilot");
+    airspeed_kts_copilot_ref                = XPLMFindDataRef("sim/cockpit2/gauges/indicators/airspeed_kts_copilot");
+    altitude_ft_pilot_ref                   = XPLMFindDataRef("sim/cockpit2/gauges/indicators/altitude_ft_pilot");
+    altitude_ft_copilot_ref                 = XPLMFindDataRef("sim/cockpit2/gauges/indicators/altitude_ft_copilot");
+    vvi_fpm_pilot_ref                       = XPLMFindDataRef("sim/cockpit2/gauges/indicators/vvi_fpm_pilot");
+    vvi_fpm_copilot_ref                     = XPLMFindDataRef("sim/cockpit2/gauges/indicators/vvi_fpm_copilot");
+    turn_rate_roll_deg_pilot_ref            = XPLMFindDataRef("sim/cockpit2/gauges/indicators/turn_rate_roll_deg_pilot");
+    turn_rate_roll_deg_copilot_ref          = XPLMFindDataRef("sim/cockpit2/gauges/indicators/turn_rate_roll_deg_copilot");
+    turn_rate_heading_deg_pilot_ref         = XPLMFindDataRef("sim/cockpit2/gauges/indicators/turn_rate_heading_deg_pilot");
+    turn_rate_heading_deg_copilot_ref       = XPLMFindDataRef("sim/cockpit2/gauges/indicators/turn_rate_heading_deg_copilot	");
+    heading_AHARS_deg_mag_pilot_ref         = XPLMFindDataRef("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_pilot");
+    heading_AHARS_deg_mag_copilot_ref       = XPLMFindDataRef("sim/cockpit2/gauges/indicators/heading_AHARS_deg_mag_copilot	");
+    heading_electric_deg_mag_pilot_ref      = XPLMFindDataRef("sim/cockpit2/gauges/indicators/heading_electric_deg_mag_pilot");
+    heading_electric_deg_mag_copilot_ref    = XPLMFindDataRef("sim/cockpit2/gauges/indicators/heading_electric_deg_mag_copilot");
+    heading_vacuum_deg_mag_pilot_ref        = XPLMFindDataRef("sim/cockpit2/gauges/indicators/heading_vacuum_deg_mag_pilot");
+    heading_vacuum_deg_mag_copilot_ref      = XPLMFindDataRef("sim/cockpit2/gauges/indicators/heading_vacuum_deg_mag_copilot");
+    pitch_AHARS_deg_pilot_ref               = XPLMFindDataRef("sim/cockpit2/gauges/indicators/pitch_AHARS_deg_pilot	");
+    pitch_AHARS_deg_copilot_ref             = XPLMFindDataRef("sim/cockpit2/gauges/indicators/pitch_AHARS_deg_copilot");
+    pitch_electric_deg_pilot_ref            = XPLMFindDataRef("sim/cockpit2/gauges/indicators/pitch_electric_deg_pilot");
+    pitch_electric_deg_copilot_ref          = XPLMFindDataRef("sim/cockpit2/gauges/indicators/pitch_electric_deg_copilot");
+    pitch_vacuum_deg_pilot_ref              = XPLMFindDataRef("sim/cockpit2/gauges/indicators/pitch_vacuum_deg_pilot");
+    pitch_vacuum_deg_copilot_ref            = XPLMFindDataRef("sim/cockpit2/gauges/indicators/pitch_vacuum_deg_copilot");
+    radio_altimeter_height_ft_pilot_ref     = XPLMFindDataRef("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot");
+    radio_altimeter_height_ft_copilot_ref   = XPLMFindDataRef("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_copilot");
+    radio_altimeter_dh_lit_pilot_ref        = XPLMFindDataRef("sim/cockpit2/gauges/indicators/radio_altimeter_dh_lit_pilot");
+    radio_altimeter_dh_lit_copilot_ref      = XPLMFindDataRef("sim/cockpit2/gauges/indicators/radio_altimeter_dh_lit_copilot");
+    roll_AHARS_deg_pilot_ref                = XPLMFindDataRef("sim/cockpit2/gauges/indicators/roll_AHARS_deg_pilot");
+    roll_AHARS_deg_copilot_ref              = XPLMFindDataRef("sim/cockpit2/gauges/indicators/roll_AHARS_deg_copilot");
+    roll_electric_deg_pilot_ref             = XPLMFindDataRef("sim/cockpit2/gauges/indicators/roll_electric_deg_pilot");
+    roll_electric_deg_copilot_ref           = XPLMFindDataRef("sim/cockpit2/gauges/indicators/roll_electric_deg_copilot");
+    roll_vacuum_deg_pilot_ref               = XPLMFindDataRef("sim/cockpit2/gauges/indicators/roll_vacuum_deg_pilot");
+    roll_vacuum_deg_copilot_ref             = XPLMFindDataRef("sim/cockpit2/gauges/indicators/roll_vacuum_deg_copilot");
+    wind_heading_deg_mag_ref                = XPLMFindDataRef("sim/cockpit2/gauges/indicators/wind_heading_deg_mag");
+    wind_speed_kts_ref                      = XPLMFindDataRef("sim/cockpit2/gauges/indicators/wind_speed_kts	");
 
-    systems_avionics_on                 = XPLMCreateCommand("sim/systems/avionics_on","Avionics on");
-    systems_avionics_off                = XPLMCreateCommand("sim/systems/avionics_off","Avionics off");
-    systems_avionics_toggle             = XPLMCreateCommand("sim/systems/avionics_toggle ","Avionics toggle");
-    flightcontrol_flaps_up              = XPLMCreateCommand("sim/flight_controls/flaps_up ","Flaps up a notch");
-    flightcontrol_flaps_down            = XPLMCreateCommand("sim/flight_controls/flaps_down ","Flaps down a notch");
-    flightcontrol_pitch_trim_up         = XPLMCreateCommand("sim/flight_controls/pitch_trim_up","Pitch Trim up");
-    flightcontrol_pitch_trim_down       = XPLMCreateCommand("sim/flight_controls/pitch_trim_down ","Pitch Trim down");
-    flightcontrol_pitch_trim_takeoff    = XPLMCreateCommand("sim/flight_controls/pitch_trim_takeoff","Pitch Trim takeoff");
-    autopilot_autothrottle_on           = XPLMCreateCommand("sim/autopilot/autothrottle_on","Autopilot Auto Throttle on");
-    autopilot_autothrottle_off          = XPLMCreateCommand("sim/autopilot/autothrottle_off","Autopilot Auto Throttle off");
-    autopilot_autothrottle_toggle       = XPLMCreateCommand("sim/autopilot/autothrottle_off","Autopilot Auto Throttle toggle");
-    autopilot_heading                   = XPLMCreateCommand("sim/autopilot/heading","Autopilot Heading hold");
-    autopilot_NAV                       = XPLMCreateCommand("sim/autopilot/NAV","Autopilot VOR/LOC arm");
-    autopilot_pitch_sync                = XPLMCreateCommand("sim/autopilot/level_change","Autopilot pitch-sync");
-    autopilot_back_course               = XPLMCreateCommand("sim/autopilot/back_course","Autopilot back-course");
-    autopilot_approach                  = XPLMCreateCommand("sim/autopilot/approach","Autopilot approach");
-    autopilot_airspeed_up               = XPLMCreateCommand("sim/autopilot/airspeed_up","Autopilot airspeed up");
-    autopilot_airspeed_down             = XPLMCreateCommand("sim/autopilot/airspeed_up","Autopilot airspeed down");
-    autopilot_airspeed_sync             = XPLMCreateCommand("sim/autopilot/vertical_speed","Autopilot airspeed sync");
-    autopilot_vertical_speed            = XPLMCreateCommand("sim/autopilot/vertical_speed","Autopilot VVI arm");
-    autopilot_verical_airspeed_up       = XPLMCreateCommand("sim/autopilot/vertical_speed_up","Autopilot VVI up");
-    autopilot_verical_airspeed_down     = XPLMCreateCommand("sim/autopilot/vertical_speed_down","Autopilot VVI down");
-    autopilot_verical_airspeed_sync     = XPLMCreateCommand("sim/autopilot/airspeed_up","Autopilot VVI dync");
-    autopilot_altitude_hold             = XPLMCreateCommand("sim/autopilot/altitude_hold","Autopilot altitude select or hold");
-    autopilot_altitude_arm              = XPLMCreateCommand("sim/autopilot/altitude_arm ","Autopilot altitude-hold arm");
-    autopilot_altitude_up               = XPLMCreateCommand("sim/autopilot/altitude_up","Autopilot altitude up");
-    autopilot_altitude_down             = XPLMCreateCommand("sim/autopilot/altitude_down","Autopilot altitude down");
-    autopilot_altitude_sync             = XPLMCreateCommand("sim/autopilot/altitude_sync ","Autopilot altitude sync");
 
-    XPLMRegisterCommandHandler(systems_avionics_on,                 MultiPanelCommandHandler, 0, (void*) CMD_SYS_AVIONICS_ON);
-    XPLMRegisterCommandHandler(systems_avionics_off,                MultiPanelCommandHandler, 0, (void*) CMD_SYS_AVIONICS_OFF);
-    XPLMRegisterCommandHandler(systems_avionics_toggle,             MultiPanelCommandHandler, 0, (void*) CMD_SYS_AVIONICS_TOGGLE);
-    XPLMRegisterCommandHandler(autopilot_autothrottle_on,           MultiPanelCommandHandler, 0, (void*) CMD_OTTO_AUTOTHROTTLE_ON);
-    XPLMRegisterCommandHandler(autopilot_autothrottle_off,          MultiPanelCommandHandler, 0, (void*) CMD_OTTO_AUTOTHROTTLE_OFF);
-    XPLMRegisterCommandHandler(autopilot_autothrottle_toggle,       MultiPanelCommandHandler, 0, (void*) CMD_OTTO_AUTOTHROTTLE_TOGGLE);
-    XPLMRegisterCommandHandler(autopilot_heading,                   MultiPanelCommandHandler, 0, (void*) CMD_OTTO_HEADING);
-    XPLMRegisterCommandHandler(autopilot_NAV,                       MultiPanelCommandHandler, 0, (void*) CMD_OTTO_NAV);
-    XPLMRegisterCommandHandler(autopilot_pitch_sync,                MultiPanelCommandHandler, 0, (void*) CMD_OTTO_PITCHSYNC);
-    XPLMRegisterCommandHandler(autopilot_back_course,               MultiPanelCommandHandler, 0, (void*) CMD_OTTO_BACK_COURSE);
-    XPLMRegisterCommandHandler(autopilot_approach,                  MultiPanelCommandHandler, 0, (void*) CMD_OTTO_APPROACH);
-    XPLMRegisterCommandHandler(autopilot_airspeed_up,               MultiPanelCommandHandler, 0, (void*) CMD_OTTO_AIRSPEED_UP);
-    XPLMRegisterCommandHandler(autopilot_airspeed_down,             MultiPanelCommandHandler, 0, (void*) CMD_OTTO_AIRSPEED_DOWN);
-    XPLMRegisterCommandHandler(autopilot_airspeed_sync,             MultiPanelCommandHandler, 0, (void*) CMD_OTTO_AIRSPEED_SYNC);
-    XPLMRegisterCommandHandler(autopilot_vertical_speed,            MultiPanelCommandHandler, 0, (void*) CMD_OTTO_VERTICALSPEED);
-    XPLMRegisterCommandHandler(autopilot_verical_airspeed_up,       MultiPanelCommandHandler, 0, (void*) CMD_OTTO_VERTICALSPEED_UP);
-    XPLMRegisterCommandHandler(autopilot_verical_airspeed_down,     MultiPanelCommandHandler, 0, (void*) CMD_OTTO_VERTICALSPEED_DOWN);
-    XPLMRegisterCommandHandler(autopilot_verical_airspeed_sync,     MultiPanelCommandHandler, 0, (void*) CMD_OTTO_VERTICALSPEED_SYNC);
-    XPLMRegisterCommandHandler(autopilot_altitude_hold,             MultiPanelCommandHandler, 0, (void*) CMD_OTTO_ALTITUDE_HOLD);
-    XPLMRegisterCommandHandler(autopilot_altitude_arm,              MultiPanelCommandHandler, 0, (void*) CMD_OTTO_ALTITUDE_ARM);
-    XPLMRegisterCommandHandler(autopilot_altitude_up,               MultiPanelCommandHandler, 0, (void*) CMD_OTTO_ALTITUDE_UP);
-    XPLMRegisterCommandHandler(autopilot_altitude_down,             MultiPanelCommandHandler, 0, (void*) CMD_OTTO_ALTITUDE_DOWN);
-    XPLMRegisterCommandHandler(autopilot_altitude_sync,             MultiPanelCommandHandler, 0, (void*) CMD_OTTO_ALTITUDE_SYNC);
 
-//    gLogFile->putf("Saitek ProPanels Plugin: commands initialized\n");
-    DPRINTF("Saitek ProPanels Plugin: commands initialized\n");
+    DPRINTF("X-Gauges Plugin: commands initialized\n");
 
     init_hid(&gRpHandle, RP_PROD_ID);
     init_hid(&gMpHandle, MP_PROD_ID);
@@ -234,147 +274,23 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
     if (gMpHandle) { DPRINTF("Saitek ProPanels Plugin: gMpHandle\n"); gMpTrigger.post(); }
     if (gSpHandle) { DPRINTF("Saitek ProPanels Plugin: gSpHandle\n"); gSpTrigger.post(); }
 
- //   gLogFile->putf("Saitek ProPanels Plugin: Panel threads running\n");
     DPRINTF("Saitek ProPanels Plugin: Panel threads running\n");
 
-    XPLMRegisterFlightLoopCallback(RadioPanelFlightLoopCallback, FL_CB_INTERVAL, NULL);
-    XPLMRegisterFlightLoopCallback(MultiPanelFlightLoopCallback, FL_CB_INTERVAL, NULL);
-    XPLMRegisterFlightLoopCallback(SwitchPanelFlightLoopCallback, FL_CB_INTERVAL, NULL);
+    XPLMRegisterFlightLoopCallback(FlightLoopCallback, FL_CB_INTERVAL, NULL);
 
-//    gLogFile->putf("Saitek ProPanels Plugin: startup completed\n");
     DPRINTF("Saitek ProPanels Plugin: startup completed\n");
 
     return 1;
 }
 
-int RadioPanelCommandHandler(XPLMCommandRef    inCommand,
-                             XPLMCommandPhase  inPhase,
-                             void*             inRefcon) {
-    return 1;
-}
-
-int SwitchPanelCommandHandler(XPLMCommandRef    inCommand,
-                              XPLMCommandPhase  inPhase,
-                              void*             inRefcon) {
-    return 1;
-}
-
-int MultiPanelCommandHandler(XPLMCommandRef    inCommand,
-                             XPLMCommandPhase  inPhase,
-                             void*             inRefcon) {
-    char str[50];
-
-    switch (reinterpret_cast<long>(inRefcon)) {
-        case CMD_SYS_AVIONICS_ON:
-            strcpy(str, "system avionics on\n");
-            break;
-        case CMD_SYS_AVIONICS_OFF:
-            strcpy(str, "system avionics off\n");
-            break;
-        case CMD_SYS_AVIONICS_TOGGLE:
-            strcpy(str, "system avionics toggle\n");
-            break;
-        case CMD_OTTO_AUTOTHROTTLE_ON:
-            strcpy(str, "auto throttle on\n");
-            break;
-        case CMD_OTTO_AUTOTHROTTLE_OFF:
-            strcpy(str, "auto throttle off\n");
-            break;
-        case CMD_OTTO_AUTOTHROTTLE_TOGGLE:
-            strcpy(str, "auto throttle toggle\n");
-            break;
-        case CMD_OTTO_HEADING:
-            strcpy(str, "auto pilot heading\n");
-            break;
-        case CMD_OTTO_NAV:
-            strcpy(str, "auto pilot navigation\n");
-            break;
-        case CMD_OTTO_PITCHSYNC:
-            strcpy(str, "auto pilot pitch sync\n");
-            break;
-        case CMD_OTTO_BACK_COURSE:
-            strcpy(str, "auto pilot back course\n");
-            break;
-        case CMD_OTTO_AIRSPEED_UP:
-            strcpy(str, "auto pilot airspeed up\n");
-            break;
-        case CMD_OTTO_AIRSPEED_DOWN:
-            strcpy(str, "auto pilot airspeed down\n");
-            break;
-        case CMD_OTTO_AIRSPEED_SYNC:
-            strcpy(str, "auto pilot airspeed sync\n");
-            break;
-        case CMD_OTTO_VERTICALSPEED:
-            strcpy(str, "auto pilot vertical speed\n");
-            break;
-        case CMD_OTTO_VERTICALSPEED_UP:
-            strcpy(str, "auto pilot vertical up\n");
-            break;
-        case CMD_OTTO_VERTICALSPEED_DOWN:
-            strcpy(str, "auto pilot vertical down\n");
-            break;
-        case CMD_OTTO_VERTICALSPEED_SYNC:
-            strcpy(str, "auto pilot vertical sync\n");
-            break;
-        case CMD_OTTO_ALTITUDE_HOLD:
-            strcpy(str, "auto pilot altitude hold\n");
-            break;
-        case CMD_OTTO_ALTITUDE_ARM:
-            strcpy(str, "auto pilot altitude arm\n");
-            break;
-        case CMD_OTTO_ALTITUDE_UP:
-            strcpy(str, "auto pilot altitude up\n");
-            break;
-        case CMD_OTTO_ALTITUDE_DOWN:
-            strcpy(str, "auto pilot altitude down\n");
-            break;
-        case CMD_OTTO_ALTITUDE_SYNC:
-            strcpy(str, "auto pilot altitude sync\n");
-            break;
-        default:
-            strcpy(str, "UNKNOWN\n");
-            break;
-    }
-
-    XPLMSpeakString(str);
-
-    return 1;
-}
-
 /*
  *
  *
  */
-float RadioPanelFlightLoopCallback(float   inElapsedSinceLastCall,
-                         float   inElapsedTimeSinceLastFlightLoop,
-                         int     inCounter,
-                         void*   inRefcon) {
-    return 1.0;
-}
-
-/*
- *
- *
- */
-float SwitchPanelFlightLoopCallback(float   inElapsedSinceLastCall,
-                         float   inElapsedTimeSinceLastFlightLoop,
-                         int     inCounter,
-                         void*   inRefcon) {
-    return 1.0;
-}
-
-/*
- *
- *
- */
-float MultiPanelFlightLoopCallback(float   inElapsedSinceLastCall,
-                         float   inElapsedTimeSinceLastFlightLoop,
-                         int     inCounter,
-                         void*   inRefcon) {
-    float x;
-    unsigned int cmd;
-// TODO: what's a good count, get rid of the magic number
-    unsigned int msg_cnt = 50;
+float FlightLoopCallback(float  inElapsedSinceLastCall,
+                         float  inElapsedTimeSinceLastFlightLoop,
+                         int    inCounter,
+                         void*  inRefcon) {
 
     if ((gFlCbCnt % PANEL_CHECK_INTERVAL) == 0) {
         if (gEnabled) {
@@ -382,61 +298,53 @@ float MultiPanelFlightLoopCallback(float   inElapsedSinceLastCall,
         }
     }
 
-    while (msg_cnt-- > 0) {
-        message* msg = gMp_ojq.getmessage(MSG_NOWAIT);
+    // Pilot gauge info
+    GaugeInfo* p = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+    p->systems_avionics_on = XPLMGetDataf(systems_avionics_on_ref);
+    p->systems_avionics_off = XPLMGetDataf(systems_avionics_off_ref);
+    p->compass_heading_deg_mag = XPLMGetDataf(compass_heading_deg_mag_ref);
+    p->airspeed_kts = XPLMGetDataf(airspeed_kts_pilot_ref);
+    p->altitude_ft = XPLMGetDataf(altitude_ft_pilot_ref);
+    p->vvi_fpm = XPLMGetDataf(vvi_fpm_pilot_ref);
+    p->turn_rate_roll_deg = XPLMGetDataf(turn_rate_roll_deg_pilot_ref);
+    p->turn_rate_heading_deg = XPLMGetDataf(turn_rate_heading_deg_pilot_ref);
+    p->heading_AHARS_deg_mag = XPLMGetDataf(heading_AHARS_deg_mag_pilot_ref);
+    p->heading_electric_deg_mag = XPLMGetDataf(heading_electric_deg_mag_pilot_ref);
+    p->heading_vacuum_deg_mag = XPLMGetDataf(heading_vacuum_deg_mag_pilot_ref);
+    p->pitch_AHARS_deg = XPLMGetDataf(pitch_AHARS_deg_pilot_ref);
+    p->pitch_electric_deg = XPLMGetDataf(pitch_electric_deg_pilot_ref);
+    p->pitch_vacuum_deg = XPLMGetDataf(pitch_vacuum_deg_pilot_ref);
+    p->radio_altimeter_height_ft = XPLMGetDataf(radio_altimeter_height_ft_pilot_ref);
+    p->radio_altimeter_dh_lit = XPLMGetDataf(radio_altimeter_dh_lit_pilot_ref);
+    p->roll_AHARS_deg = XPLMGetDataf(roll_AHARS_deg_pilot_ref);
+    p->roll_electric_deg = XPLMGetDataf(roll_electric_deg_pilot_ref);
+    p->roll_vacuum_deg = XPLMGetDataf(roll_vacuum_deg_pilot_ref);
+    p->wind_heading_deg_mag = XPLMGetDataf(wind_heading_deg_mag_ref);
+    p->wind_speed_kts = XPLMGetDataf(wind_speed_kts_ref);
 
-        if (msg) {
-            cmd = *((unsigned int*)((myjob*) msg)->buf);
-
-            switch (cmd) {
-                case MP_READ_AUTOTHROTTLE_OFF:
-                    XPLMSetDataf(gApAutoThrottleRef, false);
-                    break;
-                case MP_READ_AUTOTHROTTLE_ON:
-                    XPLMSetDataf(gApAutoThrottleRef, true);
-                    break;
-                case MP_READ_PITCHTRIM_UP:
-    // TODO; add range and sanity checks
-    //                if (XPLMGetDataf(gApMaxElevTrimRef) != 0.0) {
-    //XPLMSpeakString("pitch up");
-                        x = XPLMGetDataf(gApElevTrimRef) + 0.01;
-    //                    if (x <= 1.0) {
-                            XPLMSetDataf(gApElevTrimRef, x);
-    //                        XPLMSetDatai(gApElevTrimUpAnnuncRef, true);
-    //                    }
-    //                }
-    //                XPLMCommandKeyStroke(xplm_key_elvtrimU);
-                    break;
-                case MP_READ_PITCHTRIM_DOWN:
-    // TODO; add range and sanity checks
-    //                if (XPLMGetDataf(gApMaxElevTrimRef) != 0.0) {
-    //XPLMSpeakString("pitch down");
-                        x = XPLMGetDataf(gApElevTrimRef) - 0.01;
-    //                    if (x >= 0.0) {
-                            XPLMSetDataf(gApElevTrimRef, x);
-    //                        XPLMSetDatai(gApElevTrimDownAnnuncRef, true);
-    //                    }
-    //                }
-    //                XPLMCommandKeyStroke(xplm_key_elvtrimD);
-                    break;
-                case MP_READ_FLAPSDOWN:
-    //XPLMSpeakString("flaps down");
-                    XPLMCommandKeyStroke(xplm_key_flapsdn);
-                    break;
-                case MP_READ_FLAPSUP:
-    //XPLMSpeakString("flaps up");
-                    XPLMCommandKeyStroke(xplm_key_flapsup);
-                    break;
-                default:
-                    break;
-            }
-
-            free(((myjob*) msg)->buf);
-            delete msg;
-        } else {
-            break;
-        }
-    }
+    // CoPilot gauge info
+    GaugeInfo* cp = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+    cp->systems_avionics_on = XPLMGetDataf(systems_avionics_on_ref);
+    cp->systems_avionics_off = XPLMGetDataf(systems_avionics_off_ref);
+    cp->compass_heading_deg_mag = XPLMGetDataf(compass_heading_deg_mag_ref);
+    cp->airspeed_kts = XPLMGetDataf(airspeed_kts_copilot_ref);
+    cp->altitude_ft = XPLMGetDataf(altitude_ft_copilot_ref);
+    cp->vvi_fpm = XPLMGetDataf(vvi_fpm_copilot_ref);
+    cp->turn_rate_roll_deg = XPLMGetDataf(turn_rate_roll_deg_copilot_ref);
+    cp->turn_rate_heading_deg = XPLMGetDataf(turn_rate_heading_deg_copilot_ref);
+    cp->heading_AHARS_deg_mag = XPLMGetDataf(heading_AHARS_deg_mag_copilot_ref);
+    cp->heading_electric_deg_mag = XPLMGetDataf(heading_electric_deg_mag_copilot_ref);
+    cp->heading_vacuum_deg_mag = XPLMGetDataf(heading_vacuum_deg_mag_copilot_ref);
+    cp->pitch_AHARS_deg = XPLMGetDataf(pitch_AHARS_deg_copilot_ref);
+    cp->pitch_electric_deg = XPLMGetDataf(pitch_electric_deg_copilot_ref);
+    cp->pitch_vacuum_deg = XPLMGetDataf(pitch_vacuum_deg_copilot_ref);
+    cp->radio_altimeter_height_ft = XPLMGetDataf(radio_altimeter_height_ft_copilot_ref);
+    cp->radio_altimeter_dh_lit = XPLMGetDataf(radio_altimeter_dh_lit_copilot_ref);
+    cp->roll_AHARS_deg = XPLMGetDataf(roll_AHARS_deg_copilot_ref);
+    cp->roll_electric_deg = XPLMGetDataf(roll_electric_deg_copilot_ref);
+    cp->roll_vacuum_deg = XPLMGetDataf(roll_vacuum_deg_copilot_ref);
+    cp->wind_heading_deg_mag = XPLMGetDataf(wind_heading_deg_mag_ref);
+    cp->wind_speed_kts = XPLMGetDataf(wind_speed_kts_ref);
 
     gFlCbCnt++;
 
@@ -475,9 +383,7 @@ XPluginStop(void) {
     hid_close((hid_device*)gSpHandle);
 
     psleep(500);
-    XPLMUnregisterFlightLoopCallback(RadioPanelFlightLoopCallback, NULL);
-    XPLMUnregisterFlightLoopCallback(MultiPanelFlightLoopCallback, NULL);
-    XPLMUnregisterFlightLoopCallback(SwitchPanelFlightLoopCallback, NULL);
+    XPLMUnregisterFlightLoopCallback(FlightLoopCallback, NULL);
 }
 
 /*

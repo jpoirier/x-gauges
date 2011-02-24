@@ -165,6 +165,7 @@ int callback_handler(XPWidgetMessage    inMessage,
         }
 
         if (inParam1 == (long)gApplyButton) {
+
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gPilot1Ip, buffer, sizeof(buffer));
             gP1_ip = string(buffer);
