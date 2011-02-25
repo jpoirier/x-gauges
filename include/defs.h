@@ -13,7 +13,7 @@
 #endif
 
 #define SYS_MAGIC_NUM               (173975)
-#define NETWORK_SEND_INTERVAL       (25)
+#define NETWORK_SEND_INTERVAL       (1)
 
 #define MSG_WAIT                    (-1)
 

@@ -14,13 +14,15 @@
  */
 class WorkerThread : public pt::thread {
     protected:
-        int             id;
-        int             port;
+        uint8_t         buf[ELEMENT_CNT * sizeof(float)];
+        uint32_t*       ptr;
+        GaugeInfo*      s;
         pt::jobqueue*   ijq;
         pt::trigger*    state;
         pt::ipmessage*  udp;
-
-//        unsigned char   buf[IN_BUF_CNT];
+        pt::message*    msg;
+        int             id;
+        int             port;
 
         virtual void execute();
         virtual void cleanup() {}

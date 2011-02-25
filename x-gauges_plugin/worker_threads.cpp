@@ -10,6 +10,8 @@
 #include "ptypes.h"
 #include "pinet.h"
 
+#include "XPLMUtilities.h"
+
 #include "nedmalloc.h"
 #include "overloaded.h"
 #include "defs.h"
@@ -44,13 +46,6 @@ trigger gCp2Trigger(false, false);
  */
 void WorkerThread::execute() {
 
-    message* msg;
-    GaugeInfo* s;
-
-    // floats packed into uint32_t
-    uint8_t* buf = (uint8_t*) malloc(ELEMENT_CNT * sizeof(float));
-    uint32_t* ptr;
-
     while (threads_run) {
         state->wait();
 
@@ -58,30 +53,34 @@ void WorkerThread::execute() {
 //XPLMSpeakString("received\n");
         s = ((myjob*) msg)->buf;
 
-        if (s->sys_magic != SYS_MAGIC_NUM)
+        if (s == 0 || s->sys_magic != SYS_MAGIC_NUM)
             goto end;
 
 // TODO: check if avionics are on or off
         ptr = (uint32_t*)(&buf[0]);
+
         for (int i = 0; i < ELEMENT_CNT; i++) {
+            // floats packed to uint32_t
             *ptr++ = (uint32_t) pack754_32(s->list[i]);
         }
 
         try {
             udp->send((const char*)buf, ELEMENT_CNT * sizeof(float));
         } catch (estream* e) {
-            perr.putf("ClientThread jobqueue error: %s\n", pconst(e->get_message()));
+//            string m = "X-Gauge Plugin: udp send error, id: " + itostring(id) + ", " + e->get_message() + "\n";
+//            DPRINTF(m);
             delete e;
         }
 
 end:
-        free(s);
+        if (s)
+            delete s;
+
         delete msg;
     }
 
-    free(buf);
-
-    DPRINTF_VA("X-Gauge Plugin: thread %d says goodbye\n", id);
+    string m = "X-Gauge Plugin: thread " + itostring(id) + " says goodbye\n";
+    DPRINTF(m);
 }
 
 bool WorkerThread::net_config(pt::string ip, pt::string port) {
@@ -101,7 +100,8 @@ bool WorkerThread::net_config(pt::string ip, pt::string port) {
         try {
             udp = (ipmessage*) new ipmessage(iip, stringtoi(port));
         } catch (estream* e) {
-            DPRINTF_VA("NET CONFIG Error - id: %d, %s\n", id, pconst(e->get_message()));
+            string m = "NET CONFIG Error - id: " + itostring(id) + ", " + e->get_message() + "\n";
+            DPRINTF(m);
             udp = 0;
             delete e;
             err = true;

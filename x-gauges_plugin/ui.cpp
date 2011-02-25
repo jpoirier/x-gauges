@@ -163,7 +163,7 @@ int callback_handler(XPWidgetMessage    inMessage,
         }
 
         if (inParam1 == (long)gApplyButton) {
-            GaugeInfo* s;
+
             bool reconfig;
             string tmp;
 
@@ -202,9 +202,7 @@ int callback_handler(XPWidgetMessage    inMessage,
                     gP1Trigger.post();
                 } else {
                     gP1Trigger.reset();
-                    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-                    s->sys_magic = false;
-                    gP1_ijq.post(new myjob(s));
+                    gP1_ijq.post(new myjob((GaugeInfo*)0));
                 }
             }
 
@@ -243,9 +241,7 @@ int callback_handler(XPWidgetMessage    inMessage,
                     gP2Trigger.post();
                 } else  {
                     gP2Trigger.reset();
-                    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-                    s->sys_magic = false;
-                    gP2_ijq.post(new myjob(s));
+                    gP2_ijq.post(new myjob((GaugeInfo*)0));
                 }
             }
 
@@ -284,9 +280,7 @@ int callback_handler(XPWidgetMessage    inMessage,
                     gCp1Trigger.post();
                 } else  {
                     gCp1Trigger.reset();
-                    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-                    s->sys_magic = false;
-                    gCp1_ijq.post(new myjob(s));
+                    gCp1_ijq.post(new myjob((GaugeInfo*)0));
                 }
             }
 
@@ -324,9 +318,7 @@ int callback_handler(XPWidgetMessage    inMessage,
                     gCp2Trigger.post();
                 } else  {
                     gCp2Trigger.reset();
-                    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-                    s->sys_magic = false;
-                    gCp2_ijq.post(new myjob(s));
+                    gCp2_ijq.post(new myjob((GaugeInfo*)0));
                 }
             }
         }

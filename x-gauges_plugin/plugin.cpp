@@ -20,6 +20,7 @@
 #include "plugin.h"
 #include "worker_threads.h"
 #include "config.h"
+#include "ui.h"
 
 float FlightLoopCallback(float inElapsedSinceLastCall,
                          float inElapsedTimeSinceLastFlightLoop,
@@ -137,6 +138,7 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
     strcpy(outDesc, "X-Gauges  Plugin.");
 
     read_config();
+    DPRINTF("X-Gauges Plugin: read_config completed\n");
 
     systems_avionics_on_ref                 = XPLMFindDataRef("sim/systems/avionics_on");
     systems_avionics_off_ref                = XPLMFindDataRef("sim/systems/avionics_off");
@@ -185,6 +187,8 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
     cp1 = new WorkerThread(CP1_THREAD_ID, &gCp1_ijq, &gCp1Trigger);
     cp2 = new WorkerThread(CP2_THREAD_ID, &gCp2_ijq, &gCp2Trigger);
 
+    DPRINTF("X-Gauges Plugin: worker threads created\n");
+
     if (!isempty(gP1_ip) && !isempty(gP1_port))
         p1->net_config(gP1_ip, gP1_port);
 
@@ -197,12 +201,12 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
     if (!isempty(gCp2_ip) && !isempty(gCp2_port))
         cp2->net_config(gCp2_ip, gCp2_port);
 
+    DPRINTF("X-Gauges Plugin: worker threads network config completed\n");
+
     p1->start();
     p2->start();
     cp1->start();
     cp2->start();
-
-    DPRINTF("X-Gauges Plugin: worker threads running\n");
 
     if (gP1_enabled == '1')
         gP1Trigger.post();
@@ -216,9 +220,14 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
     if (gCp2_enabled == '1')
         gCp2Trigger.post();
 
+    DPRINTF("X-Gauges Plugin: worker threads started\n");
+
     XPLMRegisterFlightLoopCallback(FlightLoopCallback, FL_CB_INTERVAL, NULL);
 
-    DPRINTF("X-Gauges  Plugin: startup completed\n");
+    DPRINTF("X-Gauges Plugin: calling ui_create\n");
+    ui_create();
+
+    DPRINTF("X-Gauges Plugin: startup completed\n");
 
     return 1;
 }
@@ -235,12 +244,15 @@ float FlightLoopCallback(float  inElapsedSinceLastCall,
 // todo: looks like the named items can be disgarded and an array used
 
     if ((gFlCbCnt % NETWORK_SEND_INTERVAL) == 0) {
+
         GaugeInfo* p1 = 0;
         GaugeInfo* cp1 = 0;
 
         // Pilot gauge info
         if (gP1_enabled == '1' || gP2_enabled == '1') {
+
             p1 = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+
             p1->sys_magic                   = SYS_MAGIC_NUM;
             p1->systems_avionics_on         = XPLMGetDataf(systems_avionics_on_ref);
             p1->systems_avionics_off        = XPLMGetDataf(systems_avionics_off_ref);
@@ -367,39 +379,29 @@ float FlightLoopCallback(float  inElapsedSinceLastCall,
     return 1.0;
 }
 
+// X-Plane exit: XPluginDisable then XPluginStop
 /*
  *
  */
 PLUGIN_API void
 XPluginStop(void) {
 
-    GaugeInfo* s;
-
-    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-    s->sys_magic = false;
-    gP1_ijq.post(new myjob(s));
-
-    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-    s->sys_magic = false;
-    gP2_ijq.post(new myjob(s));
-
-    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-    s->sys_magic = false;
-    gCp1_ijq.post(new myjob(s));
-
-    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-    s->sys_magic = false;
-    gCp2_ijq.post(new myjob(s));
-
     pexchange((int*)&threads_run, false);
+
+    gP1_ijq.post(new myjob((GaugeInfo*)0));
+    gP2_ijq.post(new myjob((GaugeInfo*)0));
+    gCp1_ijq.post(new myjob((GaugeInfo*)0));
+    gCp2_ijq.post(new myjob((GaugeInfo*)0));
 
     gP1Trigger.post();
     gP2Trigger.post();
     gCp1Trigger.post();
     gCp2Trigger.post();
 
-    psleep(500);
+    psleep(1000);
     XPLMUnregisterFlightLoopCallback(FlightLoopCallback, NULL);
+
+    DPRINTF("X-Gauges Plugin: XPluginStop...\n");
 }
 
 /*
@@ -414,23 +416,12 @@ XPluginDisable(void) {
     gCp1Trigger.reset();
     gCp2Trigger.reset();
 
-    GaugeInfo* s;
+    gP1_ijq.post(new myjob((GaugeInfo*)0));
+    gP2_ijq.post(new myjob((GaugeInfo*)0));
+    gCp1_ijq.post(new myjob((GaugeInfo*)0));
+    gCp2_ijq.post(new myjob((GaugeInfo*)0));
 
-    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-    s->sys_magic = false;
-    gP1_ijq.post(new myjob(s));
-
-    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-    s->sys_magic = false;
-    gP2_ijq.post(new myjob(s));
-
-    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-    s->sys_magic = false;
-    gCp1_ijq.post(new myjob(s));
-
-    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-    s->sys_magic = false;
-    gCp2_ijq.post(new myjob(s));
+    DPRINTF("X-Gauges Plugin: XPluginDisable...\n");
 }
 
 /*
@@ -450,6 +441,8 @@ XPluginEnable(void) {
     gP2Trigger.post();
     gCp1Trigger.post();
     gCp2Trigger.post();
+
+    DPRINTF("X-Gauges Plugin: XPluginEnable...\n");
 
     return 1;
 }

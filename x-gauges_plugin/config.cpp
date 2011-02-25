@@ -36,7 +36,8 @@ void read_config() {
     try {
         f.open();
     } catch (estream* e) {
-        DPRINTF_VA("Open Config Read File Error: %s\n", (const char*)e->get_message());
+        string m = "Open Config Read File Error: " + e->get_message() + "\n";
+        DPRINTF(m);
         delete e;
         return;
     }
