@@ -78,4 +78,4 @@ extern "C" {
 }
 #endif
 
-#endif  // DEFS_H
+#endif

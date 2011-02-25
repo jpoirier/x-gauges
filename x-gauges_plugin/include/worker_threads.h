@@ -5,10 +5,6 @@
 #ifndef WORKER_THREADS_H
 #define WORKER_THREADS_H
 
-#include "pinet.h"
-#include "pasync.h"
-#include "defs.h"
-
 
 /**
  * @class WorkerThread
@@ -57,6 +53,8 @@ class myjob : public pt::message {
 extern "C" {
 #endif
 
+    extern int volatile threads_run;
+
     extern pt::trigger gP1Trigger;
     extern pt::trigger gP2Trigger;
     extern pt::trigger gCp1Trigger;
@@ -66,8 +64,6 @@ extern "C" {
     extern pt::jobqueue gP2_ijq;
     extern pt::jobqueue gCp1_ijq;
     extern pt::jobqueue gCp2_ijq;
-
-    extern int volatile threads_run;
 
     extern WorkerThread* p1;
     extern WorkerThread* p2;

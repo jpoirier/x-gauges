@@ -2,20 +2,15 @@
 // Distributable under the terms of The New BSD License
 // that can be found in the LICENSE file.
 
-#include <cstring>
-#include <cassert>
-#include <stdio.h>
-#include <stdlib.h>
-#include <wchar.h>
+#if defined(__WINDOWS__)
+# define WIN32_LEAN_AND_MEAN
+# include <windows.h>
+#endif
 
 #include "ptypes.h"
-#include "pport.h"
-#include "pstreams.h"
-
-#include "XPLMUtilities.h"
+#include "pinet.h"
 
 #include "defs.h"
-//#include "utils.h"
 #include "nedmalloc.h"
 #include "overloaded.h"
 #include "plugin.h"
@@ -24,8 +19,8 @@
 
 USING_PTYPES
 
-const int MSG_MYJOB         = MSG_USER + 1;
-int volatile threads_run    = false;
+const int MSG_MYJOB = MSG_USER + 1;
+int volatile threads_run = false;
 
 WorkerThread* p1 = 0;
 WorkerThread* p2 = 0;

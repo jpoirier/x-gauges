@@ -9,11 +9,11 @@
 extern "C" {
 #endif
 
-extern void ui_create(void);
-extern void ui_destroy(void);
+    extern void ui_create(void);
+    extern void ui_destroy(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif  // UI_H
+#endif

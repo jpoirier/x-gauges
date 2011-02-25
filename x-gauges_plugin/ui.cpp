@@ -7,22 +7,9 @@
 # include <windows.h>
 #endif
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-#include "pport.h"
 #include "ptypes.h"
-#include "pasync.h"
-#include "ptime.h"
-#include "pstreams.h"
-#include "pstringx.h"
+#include "pinet.h"
 
-#include "XPLMProcessing.h"
-#include "XPLMDataAccess.h"
-#include "XPLMUtilities.h"
-#include "XPLMNavigation.h"
-#include "XPLMDisplay.h"
 #include "XPLMMenus.h"
 #include "XPWidgets.h"
 #include "XPStandardWidgets.h"

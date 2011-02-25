@@ -8,8 +8,8 @@
 #endif
 
 #include "ptypes.h"
-#include "pstreams.h"
 #include "pstringx.h"
+#include "pinet.h"
 
 #include "XPLMUtilities.h"
 

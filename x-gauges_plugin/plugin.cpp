@@ -7,11 +7,8 @@
 # include <windows.h>
 #endif
 
-#include "pport.h"
 #include "ptypes.h"
-#include "pasync.h"
-#include "ptime.h"
-
+#include "pinet.h"
 
 #include "XPLMProcessing.h"
 #include "XPLMDataAccess.h"
