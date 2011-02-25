@@ -185,26 +185,24 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
     cp1 = new WorkerThread(CP1_THREAD_ID, &gCp1_ijq, &gCp1Trigger);
     cp2 = new WorkerThread(CP2_THREAD_ID, &gCp2_ijq, &gCp2Trigger);
 
-    if (!isempty(gP1_ip) && !isempty(gP1_port)) {
+    if (!isempty(gP1_ip) && !isempty(gP1_port))
         p1->net_config(gP1_ip, gP1_port);
-    }
 
-    if (!isempty(gP2_ip) && !isempty(gP2_port)) {
+    if (!isempty(gP2_ip) && !isempty(gP2_port))
         p2->net_config(gP2_ip, gP2_port);
-    }
 
-    if (!isempty(gCp1_ip) && !isempty(gCp1_port)) {
+    if (!isempty(gCp1_ip) && !isempty(gCp1_port))
         cp1->net_config(gCp1_ip, gCp1_port);
-    }
 
-    if (!isempty(gCp2_ip) && !isempty(gCp2_port)) {
+    if (!isempty(gCp2_ip) && !isempty(gCp2_port))
         cp2->net_config(gCp2_ip, gCp2_port);
-    }
 
     p1->start();
     p2->start();
     cp1->start();
     cp2->start();
+
+    DPRINTF("X-Gauges Plugin: worker threads running\n");
 
     if (gP1_enabled == '1')
         gP1Trigger.post();
@@ -217,8 +215,6 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
 
     if (gCp2_enabled == '1')
         gCp2Trigger.post();
-
-    DPRINTF("X-Gauges Plugin: worker threads running\n");
 
     XPLMRegisterFlightLoopCallback(FlightLoopCallback, FL_CB_INTERVAL, NULL);
 
@@ -236,10 +232,12 @@ float FlightLoopCallback(float  inElapsedSinceLastCall,
                          int    inCounter,
                          void*  inRefcon) {
 
-    GaugeInfo* p1;
-    GaugeInfo* cp1;
+// todo: looks like the named items can be disgarded and an array used
 
     if ((gFlCbCnt % NETWORK_SEND_INTERVAL) == 0) {
+        GaugeInfo* p1 = 0;
+        GaugeInfo* cp1 = 0;
+
         // Pilot gauge info
         if (gP1_enabled == '1' || gP2_enabled == '1') {
             p1 = (GaugeInfo*) malloc(sizeof(GaugeInfo));
@@ -342,7 +340,7 @@ float FlightLoopCallback(float  inElapsedSinceLastCall,
         if (gP1_enabled == '1') {
             if (gP2_enabled == '1') {
                 GaugeInfo* p2 = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-                p2 = p1;
+                *p2 = *p1;
                 gP2_ijq.post(new myjob(p2));
             }
 
@@ -354,7 +352,7 @@ float FlightLoopCallback(float  inElapsedSinceLastCall,
         if (gCp1_enabled == '1') {
             if (gCp2_enabled == '1') {
                 GaugeInfo* cp2 = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-                cp2 = cp1;
+                *cp2 = *cp1;
                 gCp2_ijq.post(new myjob(cp2));
             }
 
@@ -415,6 +413,24 @@ XPluginDisable(void) {
     gP2Trigger.reset();
     gCp1Trigger.reset();
     gCp2Trigger.reset();
+
+    GaugeInfo* s;
+
+    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+    s->sys_magic = false;
+    gP1_ijq.post(new myjob(s));
+
+    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+    s->sys_magic = false;
+    gP2_ijq.post(new myjob(s));
+
+    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+    s->sys_magic = false;
+    gCp1_ijq.post(new myjob(s));
+
+    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+    s->sys_magic = false;
+    gCp2_ijq.post(new myjob(s));
 }
 
 /*

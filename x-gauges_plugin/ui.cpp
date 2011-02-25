@@ -108,6 +108,7 @@ void menu_kill(void) {
 void ui_hide(void) {
 
 	if (gMenuVisible) {
+
 		XPHideWidget(gSettingsWidget);
 		gMenuVisible = false;
 	}
@@ -116,6 +117,7 @@ void ui_hide(void) {
 void ui_kill(void) {
 
 	if (gMenuWidget) {
+
         gMenuWidget = false;
 		XPDestroyWidget(gSettingsWidget, true);
 	}
@@ -125,9 +127,11 @@ void menu_handler(void* mRef, void* iRef) {
 
     if (!strcmp((char*) iRef, "Network Settings")) {
 		if (!gMenuWidget) {
+
             gMenuWidget = true;
             create_widget(UI_X, UI_Y, UI_WIDTH, UI_HEIGHT);
 		} else if (!XPIsWidgetVisible(gSettingsWidget)) {
+
             XPShowWidget(gSettingsWidget);
 		}
 
@@ -145,49 +149,186 @@ int callback_handler(XPWidgetMessage    inMessage,
 
 	// we are not displaying the close (X) to avoid uncertainty about its logic (is it Cancel or OK?)
 	if (inMessage == xpMessage_CloseButtonPushed) {
+
 		ui_hide();
 		return true;
 	}
 
 	if (inMessage == xpMsg_PushButtonPressed) {
+
 		if (inParam1 == (long)gExitButton) {
+
             ui_hide();
             return true;
         }
 
         if (inParam1 == (long)gApplyButton) {
+            GaugeInfo* s;
+            bool reconfig;
+            string tmp;
 
+            // pilot 1
+            reconfig = false;
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gPilot1Ip, buffer, sizeof(buffer));
-            gP1_ip = string(buffer);
+            tmp = string(buffer);
+
+            if (gP1_ip != tmp) {
+
+                gP1_ip = tmp;
+                reconfig = true;
+            }
+
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gPilot1Port, buffer, sizeof(buffer));
-            gP1_port = string(buffer);
-            gP1_enabled = itostring((int) XPGetWidgetProperty(gPilot1Chkbox, xpProperty_ButtonState, NULL));
+            tmp = string(buffer);
 
+            if (gP1_port != tmp) {
+
+                gP1_port = tmp;
+                reconfig = true;
+            }
+
+            if (reconfig)
+                p1->net_config(gP1_ip, gP1_port);
+
+            tmp = itostring((int)XPGetWidgetProperty(gPilot1Chkbox, xpProperty_ButtonState, NULL));
+
+            if (gP1_enabled != tmp) {
+
+                gP1_enabled = tmp;
+
+                if (tmp == '1') {
+                    gP1Trigger.post();
+                } else {
+                    gP1Trigger.reset();
+                    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+                    s->sys_magic = false;
+                    gP1_ijq.post(new myjob(s));
+                }
+            }
+
+            // pilot 2
+            reconfig = false;
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gPilot2Ip, buffer, sizeof(buffer));
-            gP2_ip = string(buffer);
+            tmp = string(buffer);
+
+            if (gP2_ip != tmp) {
+
+                gP2_ip = tmp;
+                reconfig = true;
+            }
+
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gPilot2Port, buffer, sizeof(buffer));
-            gP2_port = string(buffer);
-            gP2_enabled = itostring((int) XPGetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonState, NULL));
+            tmp = string(buffer);
 
+            if (gP2_port != tmp) {
+
+                gP2_port = tmp;
+                reconfig = true;
+            }
+
+            if (reconfig)
+                p2->net_config(gP2_ip, gP2_port);
+
+            tmp = itostring((int)XPGetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonState, NULL));
+
+            if (gP2_enabled != tmp) {
+
+                gP2_enabled = tmp;
+
+                if (tmp == '1') {
+                    gP2Trigger.post();
+                } else  {
+                    gP2Trigger.reset();
+                    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+                    s->sys_magic = false;
+                    gP2_ijq.post(new myjob(s));
+                }
+            }
+
+            // copilot 1
+            reconfig = false;
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gCopilot1Ip, buffer, sizeof(buffer));
-            gCp1_ip = string(buffer);
-            memset(buffer, 0, sizeof(buffer));
-            XPGetWidgetDescriptor(gCopilot1Port, buffer, sizeof(buffer));
-            gCp1_port = string(buffer);
-            gCp1_enabled = itostring((int) XPGetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonState, NULL));
+            tmp = string(buffer);
+
+            if (gCp1_ip != tmp) {
+
+                gCp1_ip = tmp;
+                reconfig = true;
+            }
 
             memset(buffer, 0, sizeof(buffer));
+            XPGetWidgetDescriptor(gCopilot1Port, buffer, sizeof(buffer));
+            tmp = string(buffer);
+
+            if (gCp1_port != tmp) {
+
+                gCp1_port = tmp;
+                reconfig = true;
+            }
+
+            if (reconfig)
+                cp1->net_config(gCp1_ip, gCp1_port);
+
+            tmp = itostring((int)XPGetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonState, NULL));
+
+            if (gCp1_enabled != tmp) {
+
+                gCp1_enabled = tmp;
+
+                if (tmp == '1') {
+                    gCp1Trigger.post();
+                } else  {
+                    gCp1Trigger.reset();
+                    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+                    s->sys_magic = false;
+                    gCp1_ijq.post(new myjob(s));
+                }
+            }
+
+            // copilot 2
+            memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gCopilot2Ip, buffer, sizeof(buffer));
-            gCp2_ip = string(buffer);
+            tmp = string(buffer);
+
+            if (gCp2_ip != tmp) {
+
+                gCp2_ip = tmp;
+                reconfig = true;
+            }
+
             memset(buffer, 0, sizeof(buffer));
             XPGetWidgetDescriptor(gCopilot2Port, buffer, sizeof(buffer));
-            gCp2_port = string(buffer);
-            gCp2_enabled = itostring((int) XPGetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonState, NULL));
+            tmp = string(buffer);
+
+            if (gCp2_port != tmp) {
+
+                gCp2_port = tmp;
+                reconfig = true;
+            }
+
+            if (reconfig)
+                cp2->net_config(gCp2_ip, gCp2_port);
+
+            tmp = itostring((int) XPGetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonState, NULL));
+
+            if (gCp2_enabled != tmp) {
+
+                gCp2_enabled = tmp;
+
+                if (tmp == '1') {
+                    gCp2Trigger.post();
+                } else  {
+                    gCp2Trigger.reset();
+                    s = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+                    s->sys_magic = false;
+                    gCp2_ijq.post(new myjob(s));
+                }
+            }
         }
 	}
 

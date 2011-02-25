@@ -7,7 +7,7 @@
 
 #define ELEMENT_CNT     (21)
 
-typedef struct tagGaugeInfo {
+struct GaugeInfo {
     int sys_magic;
     float systems_avionics_on;
     float systems_avionics_off;
@@ -31,7 +31,7 @@ typedef struct tagGaugeInfo {
     float wind_heading_deg_mag;
     float wind_speed_kts;
     float list[ELEMENT_CNT];
-} GaugeInfo;
+};
 
 #ifdef __cplusplus
 extern "C" {
