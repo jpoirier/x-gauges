@@ -14,8 +14,8 @@
 #include "XPLMUtilities.h"
 
 #include "nedmalloc.h"
-#include "defs.h"
 #include "overloaded.h"
+#include "defs.h"
 #include "plugin.h"
 #include "worker_threads.h"
 #include "config.h"

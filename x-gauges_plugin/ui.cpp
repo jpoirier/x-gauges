@@ -14,6 +14,8 @@
 #include "XPWidgets.h"
 #include "XPStandardWidgets.h"
 
+#include "nedmalloc.h"
+#include "overloaded.h"
 #include "defs.h"
 #include "plugin.h"
 #include "worker_threads.h"

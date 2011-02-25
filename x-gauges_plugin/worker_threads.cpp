@@ -10,9 +10,9 @@
 #include "ptypes.h"
 #include "pinet.h"
 
-#include "defs.h"
 #include "nedmalloc.h"
 #include "overloaded.h"
+#include "defs.h"
 #include "plugin.h"
 #include "worker_threads.h"
 
@@ -55,6 +55,9 @@ void WorkerThread::execute() {
 //XPLMSpeakString("received\n");
         s = ((myjob*) msg)->buf;
 
+        if (s->sys_magic != SYS_MAGIC_NUM)
+            goto end;
+
 // TODO: check if avionics are on or off
 // TODO: serialize the struct data and send via udp
 //            try {
@@ -64,7 +67,7 @@ void WorkerThread::execute() {
 //                delete e;
 //            }
 
-//end:
+end:
         free(s);
         delete msg;
     }
@@ -72,7 +75,8 @@ void WorkerThread::execute() {
     DPRINTF_VA("X-Gauge Plugin: thread %d says goodbye\n", id);
 }
 
-bool WorkerThread::net_config(pt::ipaddress ip, int port) {
+bool WorkerThread::net_config(pt::string ip, pt::string port) {
+
     bool err = false;
 
     if (!udp) {
@@ -81,7 +85,7 @@ bool WorkerThread::net_config(pt::ipaddress ip, int port) {
     }
 
     try {
-        udp = (ipmessage*) new ipmessage(ip, port);
+        udp = (ipmessage*) new ipmessage(phostbyname(ip), stringtoi(port));
     } catch (estream* e) {
         DPRINTF_VA("NET CONFIG Error - id: %d, %s\n", id, (const char*)e->get_message());
         udp = 0;

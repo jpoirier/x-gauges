@@ -30,7 +30,7 @@ class WorkerThread : public pt::thread {
                         : thread(true), id(iid), ijq(iiq), state(itrigger), udp(0) {}
         ~WorkerThread() {}
 
-        bool net_config(pt::ipaddress ip, int port);
+        bool net_config(pt::string ip, pt::string port);
 };
 
 

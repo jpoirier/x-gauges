@@ -45,18 +45,18 @@ USING_PTYPES
 bool gEnabled = false;
 static const float FL_CB_INTERVAL = -1.0;
 
-string gP1_ip = " ";
-string gP1_port = " ";
-string gP1_enabled = '0';
-string gP2_ip = " ";
-string gP2_port = " ";
-string gP2_enabled = '0';
-string gCp1_ip = " ";
-string gCp1_port = " ";
-string gCp1_enabled = '0';
-string gCp2_ip = " ";
-string gCp2_port = " ";
-string gCp2_enabled = '0';
+ipaddress   gP1_ip = " ";
+string      gP1_port = " ";
+string      gP1_enabled = '0';
+ipaddress   gP2_ip = " ";
+string      gP2_port = " ";
+string      gP2_enabled = '0';
+ipaddress   gCp1_ip = " ";
+string      gCp1_port = " ";
+string      gCp1_enabled = '0';
+ipaddress   gCp2_ip = " ";
+string      gCp2_port = " ";
+string      gCp2_enabled = '0';
 
 
 PLUGIN_API int

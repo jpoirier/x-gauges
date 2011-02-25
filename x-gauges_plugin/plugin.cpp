@@ -19,6 +19,7 @@
 #include "defs.h"
 #include "plugin.h"
 #include "worker_threads.h"
+#include "config.h"
 
 float FlightLoopCallback(float inElapsedSinceLastCall,
                          float inElapsedTimeSinceLastFlightLoop,
@@ -27,17 +28,17 @@ float FlightLoopCallback(float inElapsedSinceLastCall,
 
 USING_PTYPES
 
-string gP1_ip       = " ";
-string gP1_port     = " ";
+string gP1_ip       = "";
+string gP1_port     = "";
 string gP1_enabled  = '0';
-string gP2_ip       = " ";
-string gP2_port     = " ";
+string gP2_ip       = "";
+string gP2_port     = "";
 string gP2_enabled  = '0';
-string gCp1_ip      = " ";
-string gCp1_port    = " ";
+string gCp1_ip      = "";
+string gCp1_port    = "";
 string gCp1_enabled = '0';
-string gCp2_ip      = " ";
-string gCp2_port    = " ";
+string gCp2_ip      = "";
+string gCp2_port    = "";
 string gCp2_enabled = '0';
 
 bool gPowerUp = true;
@@ -135,6 +136,8 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
     strcpy(outSig , "jdp.x-gauges");
     strcpy(outDesc, "X-Gauges  Plugin.");
 
+    read_config();
+
     systems_avionics_on_ref                 = XPLMFindDataRef("sim/systems/avionics_on");
     systems_avionics_off_ref                = XPLMFindDataRef("sim/systems/avionics_off");
     compass_heading_deg_mag_ref             = XPLMFindDataRef("sim/cockpit2/gauges/indicators/compass_heading_deg_mag");
@@ -182,16 +185,38 @@ XPluginStart(char* outName, char* outSig, char* outDesc) {
     cp1 = new WorkerThread(CP1_THREAD_ID, &gCp1_ijq, &gCp1Trigger);
     cp2 = new WorkerThread(CP2_THREAD_ID, &gCp2_ijq, &gCp2Trigger);
 
+    if (!isempty(gP1_ip) && !isempty(gP1_port)) {
+        p1->net_config(gP1_ip, gP1_port);
+    }
+
+    if (!isempty(gP2_ip) && !isempty(gP2_port)) {
+        p2->net_config(gP2_ip, gP2_port);
+    }
+
+    if (!isempty(gCp1_ip) && !isempty(gCp1_port)) {
+        cp1->net_config(gCp1_ip, gCp1_port);
+    }
+
+    if (!isempty(gCp2_ip) && !isempty(gCp2_port)) {
+        cp2->net_config(gCp2_ip, gCp2_port);
+    }
+
     p1->start();
     p2->start();
     cp1->start();
     cp2->start();
 
+    if (gP1_enabled == '1')
+        gP1Trigger.post();
 
-    gP1Trigger.post();
-    gP2Trigger.post();
-    gCp1Trigger.post();
-    gCp2Trigger.post();
+    if (gP2_enabled == '1')
+        gP2Trigger.post();
+
+    if (gCp1_enabled == '1')
+        gCp1Trigger.post();
+
+    if (gCp2_enabled == '1')
+        gCp2Trigger.post();
 
     DPRINTF("X-Gauges Plugin: worker threads running\n");
 
