@@ -14,6 +14,7 @@
 #include "overloaded.h"
 #include "defs.h"
 #include "plugin.h"
+#include "utils.h"
 #include "worker_threads.h"
 
 
@@ -27,18 +28,18 @@ WorkerThread* p2 = 0;
 WorkerThread* cp1 = 0;
 WorkerThread* cp2 = 0;
 
-jobqueue    gP1_ijq;
-jobqueue    gP2_ijq;
-jobqueue    gCp1_ijq;
-jobqueue    gCp2_ijq;
+jobqueue gP1_ijq;
+jobqueue gP2_ijq;
+jobqueue gCp1_ijq;
+jobqueue gCp2_ijq;
 
-trigger     gP1Trigger(false, false);
-trigger     gP2Trigger(false, false);
-trigger     gCp1Trigger(false, false);
-trigger     gCp2Trigger(false, false);
+trigger gP1Trigger(false, false);
+trigger gP2Trigger(false, false);
+trigger gCp1Trigger(false, false);
+trigger gCp2Trigger(false, false);
 
 
-/**  obj(p_smt->peer_addr, p_smt->peer_port)
+/**
  *
  */
 void WorkerThread::execute() {
@@ -46,7 +47,9 @@ void WorkerThread::execute() {
     message* msg;
     GaugeInfo* s;
 
-//    memset(buf, 0, OUT_BUF_CNT);
+    // floats packed into uint32_t
+    uint8_t* buf = (uint8_t*) malloc(ELEMENT_CNT * sizeof(float));
+    uint32_t* ptr;
 
     while (threads_run) {
         state->wait();
@@ -59,18 +62,24 @@ void WorkerThread::execute() {
             goto end;
 
 // TODO: check if avionics are on or off
-// TODO: serialize the struct data and send via udp
-//            try {
-//                udp.send((const char*) udpSnd_buf, u8_snd_cnt);
-//            } catch(estream* e) {
-//                perr.putf("ClientThread jobqueue error: %s\n", pconst(e->get_message()));
-//                delete e;
-//            }
+        ptr = (uint32_t*)(&buf[0]);
+        for (int i = 0; i < ELEMENT_CNT; i++) {
+            *ptr++ = (uint32_t) pack754_32(s->list[i]);
+        }
+
+        try {
+            udp->send((const char*)buf, ELEMENT_CNT * sizeof(float));
+        } catch (estream* e) {
+            perr.putf("ClientThread jobqueue error: %s\n", pconst(e->get_message()));
+            delete e;
+        }
 
 end:
         free(s);
         delete msg;
     }
+
+    free(buf);
 
     DPRINTF_VA("X-Gauge Plugin: thread %d says goodbye\n", id);
 }
@@ -79,18 +88,24 @@ bool WorkerThread::net_config(pt::string ip, pt::string port) {
 
     bool err = false;
 
-    if (!udp) {
+    if (udp) {
         free(udp);
         udp = 0;
     }
 
-    try {
-        udp = (ipmessage*) new ipmessage(phostbyname(ip), stringtoi(port));
-    } catch (estream* e) {
-        DPRINTF_VA("NET CONFIG Error - id: %d, %s\n", id, (const char*)e->get_message());
-        udp = 0;
-        delete e;
+    ipaddress iip = phostbyname(ip);
+
+    if (iip == ipnone) {
         err = true;
+    } else {
+        try {
+            udp = (ipmessage*) new ipmessage(iip, stringtoi(port));
+        } catch (estream* e) {
+            DPRINTF_VA("NET CONFIG Error - id: %d, %s\n", id, pconst(e->get_message()));
+            udp = 0;
+            delete e;
+            err = true;
+        }
     }
 
     return err;

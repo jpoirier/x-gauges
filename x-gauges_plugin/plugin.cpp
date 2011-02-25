@@ -236,57 +236,132 @@ float FlightLoopCallback(float  inElapsedSinceLastCall,
                          int    inCounter,
                          void*  inRefcon) {
 
-    if ((gFlCbCnt % NETWORK_SEND_INTERVAL) == 0) {
+    GaugeInfo* p1;
+    GaugeInfo* cp1;
 
+    if ((gFlCbCnt % NETWORK_SEND_INTERVAL) == 0) {
         // Pilot gauge info
-        GaugeInfo* p                    = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-        p->sys_magic                    = SYS_MAGIC_NUM;
-        p->systems_avionics_on          = XPLMGetDataf(systems_avionics_on_ref);
-        p->systems_avionics_off         = XPLMGetDataf(systems_avionics_off_ref);
-        p->compass_heading_deg_mag      = XPLMGetDataf(compass_heading_deg_mag_ref);
-        p->airspeed_kts                 = XPLMGetDataf(airspeed_kts_pilot_ref);
-        p->altitude_ft                  = XPLMGetDataf(altitude_ft_pilot_ref);
-        p->vvi_fpm                      = XPLMGetDataf(vvi_fpm_pilot_ref);
-        p->turn_rate_roll_deg           = XPLMGetDataf(turn_rate_roll_deg_pilot_ref);
-        p->turn_rate_heading_deg        = XPLMGetDataf(turn_rate_heading_deg_pilot_ref);
-        p->heading_AHARS_deg_mag        = XPLMGetDataf(heading_AHARS_deg_mag_pilot_ref);
-        p->heading_electric_deg_mag     = XPLMGetDataf(heading_electric_deg_mag_pilot_ref);
-        p->heading_vacuum_deg_mag       = XPLMGetDataf(heading_vacuum_deg_mag_pilot_ref);
-        p->pitch_AHARS_deg              = XPLMGetDataf(pitch_AHARS_deg_pilot_ref);
-        p->pitch_electric_deg           = XPLMGetDataf(pitch_electric_deg_pilot_ref);
-        p->pitch_vacuum_deg             = XPLMGetDataf(pitch_vacuum_deg_pilot_ref);
-        p->radio_altimeter_height_ft    = XPLMGetDataf(radio_altimeter_height_ft_pilot_ref);
-        p->radio_altimeter_dh_lit       = XPLMGetDataf(radio_altimeter_dh_lit_pilot_ref);
-        p->roll_AHARS_deg               = XPLMGetDataf(roll_AHARS_deg_pilot_ref);
-        p->roll_electric_deg            = XPLMGetDataf(roll_electric_deg_pilot_ref);
-        p->roll_vacuum_deg              = XPLMGetDataf(roll_vacuum_deg_pilot_ref);
-        p->wind_heading_deg_mag         = XPLMGetDataf(wind_heading_deg_mag_ref);
-        p->wind_speed_kts               = XPLMGetDataf(wind_speed_kts_ref);
+        if (gP1_enabled == '1' || gP2_enabled == '1') {
+            p1 = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+            p1->sys_magic                   = SYS_MAGIC_NUM;
+            p1->systems_avionics_on         = XPLMGetDataf(systems_avionics_on_ref);
+            p1->systems_avionics_off        = XPLMGetDataf(systems_avionics_off_ref);
+            p1->compass_heading_deg_mag     = XPLMGetDataf(compass_heading_deg_mag_ref);
+            p1->airspeed_kts                = XPLMGetDataf(airspeed_kts_pilot_ref);
+            p1->altitude_ft                 = XPLMGetDataf(altitude_ft_pilot_ref);
+            p1->vvi_fpm                     = XPLMGetDataf(vvi_fpm_pilot_ref);
+            p1->turn_rate_roll_deg          = XPLMGetDataf(turn_rate_roll_deg_pilot_ref);
+            p1->turn_rate_heading_deg       = XPLMGetDataf(turn_rate_heading_deg_pilot_ref);
+            p1->heading_AHARS_deg_mag       = XPLMGetDataf(heading_AHARS_deg_mag_pilot_ref);
+            p1->heading_electric_deg_mag    = XPLMGetDataf(heading_electric_deg_mag_pilot_ref);
+            p1->heading_vacuum_deg_mag      = XPLMGetDataf(heading_vacuum_deg_mag_pilot_ref);
+            p1->pitch_AHARS_deg             = XPLMGetDataf(pitch_AHARS_deg_pilot_ref);
+            p1->pitch_electric_deg          = XPLMGetDataf(pitch_electric_deg_pilot_ref);
+            p1->pitch_vacuum_deg            = XPLMGetDataf(pitch_vacuum_deg_pilot_ref);
+            p1->radio_altimeter_height_ft   = XPLMGetDataf(radio_altimeter_height_ft_pilot_ref);
+            p1->radio_altimeter_dh_lit      = XPLMGetDataf(radio_altimeter_dh_lit_pilot_ref);
+            p1->roll_AHARS_deg              = XPLMGetDataf(roll_AHARS_deg_pilot_ref);
+            p1->roll_electric_deg           = XPLMGetDataf(roll_electric_deg_pilot_ref);
+            p1->roll_vacuum_deg             = XPLMGetDataf(roll_vacuum_deg_pilot_ref);
+            p1->wind_heading_deg_mag        = XPLMGetDataf(wind_heading_deg_mag_ref);
+            p1->wind_speed_kts              = XPLMGetDataf(wind_speed_kts_ref);
+
+            // replace the names; not needed (?), above with an array
+            p1->list[0]     = p1->systems_avionics_on;
+            p1->list[1]     = p1->systems_avionics_off;
+            p1->list[2]     = p1->compass_heading_deg_mag;
+            p1->list[3]     = p1->airspeed_kts;
+            p1->list[4]     = p1->altitude_ft;
+            p1->list[5]     = p1->vvi_fpm;
+            p1->list[6]     = p1->turn_rate_roll_deg;
+            p1->list[7]     = p1->turn_rate_heading_deg;
+            p1->list[8]     = p1->heading_AHARS_deg_mag;
+            p1->list[9]     = p1->heading_electric_deg_mag;
+            p1->list[10]    = p1->heading_vacuum_deg_mag;
+            p1->list[11]    = p1->pitch_AHARS_deg;
+            p1->list[12]    = p1->pitch_electric_deg;
+            p1->list[13]    = p1->pitch_vacuum_deg;
+            p1->list[14]    = p1->radio_altimeter_height_ft;
+            p1->list[15]    = p1->radio_altimeter_dh_lit;
+            p1->list[16]    = p1->roll_AHARS_deg;
+            p1->list[17]    = p1->roll_electric_deg;
+            p1->list[18]    = p1->roll_vacuum_deg;
+            p1->list[19]    = p1->wind_heading_deg_mag;
+            p1->list[20]    = p1->wind_speed_kts;
+        }
 
         // CoPilot gauge info
-        GaugeInfo* cp                   = (GaugeInfo*) malloc(sizeof(GaugeInfo));
-        cp->sys_magic                   = SYS_MAGIC_NUM;
-        cp->systems_avionics_on         = XPLMGetDataf(systems_avionics_on_ref);
-        cp->systems_avionics_off        = XPLMGetDataf(systems_avionics_off_ref);
-        cp->compass_heading_deg_mag     = XPLMGetDataf(compass_heading_deg_mag_ref);
-        cp->airspeed_kts                = XPLMGetDataf(airspeed_kts_copilot_ref);
-        cp->altitude_ft                 = XPLMGetDataf(altitude_ft_copilot_ref);
-        cp->vvi_fpm                     = XPLMGetDataf(vvi_fpm_copilot_ref);
-        cp->turn_rate_roll_deg          = XPLMGetDataf(turn_rate_roll_deg_copilot_ref);
-        cp->turn_rate_heading_deg       = XPLMGetDataf(turn_rate_heading_deg_copilot_ref);
-        cp->heading_AHARS_deg_mag       = XPLMGetDataf(heading_AHARS_deg_mag_copilot_ref);
-        cp->heading_electric_deg_mag    = XPLMGetDataf(heading_electric_deg_mag_copilot_ref);
-        cp->heading_vacuum_deg_mag      = XPLMGetDataf(heading_vacuum_deg_mag_copilot_ref);
-        cp->pitch_AHARS_deg             = XPLMGetDataf(pitch_AHARS_deg_copilot_ref);
-        cp->pitch_electric_deg          = XPLMGetDataf(pitch_electric_deg_copilot_ref);
-        cp->pitch_vacuum_deg            = XPLMGetDataf(pitch_vacuum_deg_copilot_ref);
-        cp->radio_altimeter_height_ft   = XPLMGetDataf(radio_altimeter_height_ft_copilot_ref);
-        cp->radio_altimeter_dh_lit      = XPLMGetDataf(radio_altimeter_dh_lit_copilot_ref);
-        cp->roll_AHARS_deg              = XPLMGetDataf(roll_AHARS_deg_copilot_ref);
-        cp->roll_electric_deg           = XPLMGetDataf(roll_electric_deg_copilot_ref);
-        cp->roll_vacuum_deg             = XPLMGetDataf(roll_vacuum_deg_copilot_ref);
-        cp->wind_heading_deg_mag        = XPLMGetDataf(wind_heading_deg_mag_ref);
-        cp->wind_speed_kts              = XPLMGetDataf(wind_speed_kts_ref);
+        if (gCp1_enabled == '1' || gCp2_enabled == '1') {
+            cp1 = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+            cp1->sys_magic                  = SYS_MAGIC_NUM;
+            cp1->systems_avionics_on        = XPLMGetDataf(systems_avionics_on_ref);
+            cp1->systems_avionics_off       = XPLMGetDataf(systems_avionics_off_ref);
+            cp1->compass_heading_deg_mag    = XPLMGetDataf(compass_heading_deg_mag_ref);
+            cp1->airspeed_kts               = XPLMGetDataf(airspeed_kts_copilot_ref);
+            cp1->altitude_ft                = XPLMGetDataf(altitude_ft_copilot_ref);
+            cp1->vvi_fpm                    = XPLMGetDataf(vvi_fpm_copilot_ref);
+            cp1->turn_rate_roll_deg         = XPLMGetDataf(turn_rate_roll_deg_copilot_ref);
+            cp1->turn_rate_heading_deg      = XPLMGetDataf(turn_rate_heading_deg_copilot_ref);
+            cp1->heading_AHARS_deg_mag      = XPLMGetDataf(heading_AHARS_deg_mag_copilot_ref);
+            cp1->heading_electric_deg_mag   = XPLMGetDataf(heading_electric_deg_mag_copilot_ref);
+            cp1->heading_vacuum_deg_mag     = XPLMGetDataf(heading_vacuum_deg_mag_copilot_ref);
+            cp1->pitch_AHARS_deg            = XPLMGetDataf(pitch_AHARS_deg_copilot_ref);
+            cp1->pitch_electric_deg         = XPLMGetDataf(pitch_electric_deg_copilot_ref);
+            cp1->pitch_vacuum_deg           = XPLMGetDataf(pitch_vacuum_deg_copilot_ref);
+            cp1->radio_altimeter_height_ft  = XPLMGetDataf(radio_altimeter_height_ft_copilot_ref);
+            cp1->radio_altimeter_dh_lit     = XPLMGetDataf(radio_altimeter_dh_lit_copilot_ref);
+            cp1->roll_AHARS_deg             = XPLMGetDataf(roll_AHARS_deg_copilot_ref);
+            cp1->roll_electric_deg          = XPLMGetDataf(roll_electric_deg_copilot_ref);
+            cp1->roll_vacuum_deg            = XPLMGetDataf(roll_vacuum_deg_copilot_ref);
+            cp1->wind_heading_deg_mag       = XPLMGetDataf(wind_heading_deg_mag_ref);
+            cp1->wind_speed_kts             = XPLMGetDataf(wind_speed_kts_ref);
+
+            cp1->list[0]    = cp1->systems_avionics_on;
+            cp1->list[1]    = cp1->systems_avionics_off;
+            cp1->list[2]    = cp1->compass_heading_deg_mag;
+            cp1->list[3]    = cp1->airspeed_kts;
+            cp1->list[4]    = cp1->altitude_ft;
+            cp1->list[5]    = cp1->vvi_fpm;
+            cp1->list[6]    = cp1->turn_rate_roll_deg;
+            cp1->list[7]    = cp1->turn_rate_heading_deg;
+            cp1->list[8]    = cp1->heading_AHARS_deg_mag;
+            cp1->list[9]    = cp1->heading_electric_deg_mag;
+            cp1->list[10]   = cp1->heading_vacuum_deg_mag;
+            cp1->list[11]   = cp1->pitch_AHARS_deg;
+            cp1->list[12]   = cp1->pitch_electric_deg;
+            cp1->list[13]   = cp1->pitch_vacuum_deg;
+            cp1->list[14]   = cp1->radio_altimeter_height_ft;
+            cp1->list[15]   = cp1->radio_altimeter_dh_lit;
+            cp1->list[16]   = cp1->roll_AHARS_deg;
+            cp1->list[17]   = cp1->roll_electric_deg;
+            cp1->list[18]   = cp1->roll_vacuum_deg;
+            cp1->list[19]   = cp1->wind_heading_deg_mag;
+            cp1->list[20]   = cp1->wind_speed_kts;
+        }
+
+        if (gP1_enabled == '1') {
+            if (gP2_enabled == '1') {
+                GaugeInfo* p2 = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+                p2 = p1;
+                gP2_ijq.post(new myjob(p2));
+            }
+
+            gP1_ijq.post(new myjob(p1));
+        } else {
+            gP2_ijq.post(new myjob(p1));
+        }
+
+        if (gCp1_enabled == '1') {
+            if (gCp2_enabled == '1') {
+                GaugeInfo* cp2 = (GaugeInfo*) malloc(sizeof(GaugeInfo));
+                cp2 = cp1;
+                gCp2_ijq.post(new myjob(cp2));
+            }
+
+            gCp1_ijq.post(new myjob(cp1));
+        } else {
+            gCp2_ijq.post(new myjob(cp1));
+        }
     }
 
     gFlCbCnt++;

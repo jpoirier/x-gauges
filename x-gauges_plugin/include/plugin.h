@@ -5,6 +5,7 @@
 #ifndef PLUGIN_H
 #define PLUGIN_H
 
+#define ELEMENT_CNT     (21)
 
 typedef struct tagGaugeInfo {
     int sys_magic;
@@ -29,6 +30,7 @@ typedef struct tagGaugeInfo {
     float roll_vacuum_deg;
     float wind_heading_deg_mag;
     float wind_speed_kts;
+    float list[ELEMENT_CNT];
 } GaugeInfo;
 
 #ifdef __cplusplus
