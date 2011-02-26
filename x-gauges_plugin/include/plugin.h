@@ -5,31 +5,30 @@
 #ifndef PLUGIN_H
 #define PLUGIN_H
 
-#define ELEMENT_CNT     (21)
+#define ELEMENT_CNT     (19)
 
 struct GaugeInfo {
     int sys_magic;
-    float systems_avionics_on;
-    float systems_avionics_off;
-    float compass_heading_deg_mag;
-    float airspeed_kts;
-    float altitude_ft;
-    float vvi_fpm;
-    float turn_rate_roll_deg;
-    float turn_rate_heading_deg;
-    float heading_AHARS_deg_mag;
-    float heading_electric_deg_mag;
-    float heading_vacuum_deg_mag;
-    float pitch_AHARS_deg;
-    float pitch_electric_deg;
-    float pitch_vacuum_deg;
-    float radio_altimeter_height_ft;
-    float radio_altimeter_dh_lit;
-    float roll_AHARS_deg;
-    float roll_electric_deg;
-    float roll_vacuum_deg;
-    float wind_heading_deg_mag;
-    float wind_speed_kts;
+    int avionics_power_on;
+//  0   compass_heading_deg_mag;
+//  1   airspeed_kts;
+//  2   altitude_ft;
+//  3   vvi_fpm;
+//  4   turn_rate_roll_deg;
+//  5   turn_rate_heading_deg;
+//  6   heading_AHARS_deg_mag;
+//  7   heading_electric_deg_mag;
+//  8   heading_vacuum_deg_mag;
+//  9   pitch_AHARS_deg;
+// 10   pitch_electric_deg;
+// 11   pitch_vacuum_deg;
+// 12   radio_altimeter_height_ft;
+// 13   radio_altimeter_dh_lit;
+// 14   roll_AHARS_deg;
+// 15   roll_electric_deg;
+// 16   roll_vacuum_deg;
+// 17   wind_heading_deg_mag;
+// 18   wind_speed_kts;
     float list[ELEMENT_CNT];
 };
 
