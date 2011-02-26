@@ -7,6 +7,20 @@
 
 #define ELEMENT_CNT     (19)
 
+
+// sim/cockpit2/clock_timer/elapsed_time_hours      int	n	hours	    Elapsed time on the timer, hours
+// sim/cockpit2/clock_timer/elapsed_time_minutes    int	n	minutes	    Elapsed time on the timer, minutes
+// sim/cockpit2/clock_timer/elapsed_time_seconds    int	n	seconds	    Elapsed time on the timer, seconds
+// sim/cockpit2/clock_timer/zulu_time_hours         int	n	hours	    Zulu time, hours
+// sim/cockpit2/clock_timer/zulu_time_minutes	       int	n	minutes	    Zulu time, minutes
+// sim/cockpit2/clock_timer/zulu_time_seconds	       int	n	seconds	    Zulu time, seconds
+// sim/cockpit2/clock_timer/local_time_hours	       int	n	hours	    Local time, hours
+// sim/cockpit2/clock_timer/local_time_minutes      int	n	minutes 	Local time, minutes
+// sim/cockpit2/clock_timer/local_time_seconds	   int	n	seconds 	Local time, seconds
+// sim/cockpit2/clock_timer/hobbs_time_hours	        int	n	hours	    Hobbs meter time, hours
+// sim/cockpit2/clock_timer/hobbs_time_minutes	    int	n	minutes 	Hobbs meter time, minutes
+// sim/cockpit2/clock_timer/hobbs_time_seconds	    int	n	seconds 	Hobbs meter time, seconds
+
 struct GaugeInfo {
     int sys_magic;
     int avionics_power_on;
