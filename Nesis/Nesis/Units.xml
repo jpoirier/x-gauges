@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+
+<group_list>
+   <group name = "Length">
+		<unit id = "m"    desc = "meter"         C1 = "1.0"      />
+		<unit id = "cm"   desc = "centimeter"    C1 = "0.01"     />
+		<unit id = "mm"   desc = "milimeter"     C1 = "0.001"    />
+		<unit id = "in"   desc = "inch"          C1 = "0.0254"   />
+		<unit id = "ft"   desc = "foot"          C1 = "0.3048"   />
+		<unit id = "feet" desc = "feet"          C1 = "0.3048"   />
+		<unit id = "km"   desc = "kilometer"     C1 = "1000.0"   />
+		<unit id = "SM"   desc = "statute mile"  C1 = "1609.344" />
+		<unit id = "NM"   desc = "nautical mile" C1 = "1852.0"   />
+	</group>
+	
+	<group name = "Area">
+		<unit id = "mm2" desc = "square milimeter"  C1 = "0.000001"   />
+		<unit id = "cm2" desc = "square centimeter" C1 = "0.0001"     />
+		<unit id = "m2"  desc = "square meter"      C1 = "1.0"        />
+		<unit id = "in2" desc = "square inch"       C1 = "0.00064516" />
+		<unit id = "ft2" desc = "square foot"       C1 = "0.09290304" />
+	</group>
+	
+	<group name = "Volume/Section Modulus">
+		<unit id = "m3"  desc = "cubic meter"      C1 = "1.0"           />
+		<unit id = "l"   desc = "liter"            C1 = "0.001"         />
+		<unit id = "cm3" desc = "cubic centimeter" C1 = "0.000001"      />
+		<unit id = "mm3" desc = "cubic milimeter"  C1 = "0.000000001"   />
+		<unit id = "in3" desc = "cubic inch"       C1 = "1.6387064E-05" />
+		<unit id = "ft3" desc = "cubic foot"       C1 = "0.028316846"   />
+		<unit id = "gal" desc = "US gallon (wet)"  C1 = "0.003785411784"      />
+	</group>
+	
+	<group name = "Second Moment of Area">
+		<unit id = "mm4" desc = "" C1 = " 1.0E-12"        />
+		<unit id = "cm4" desc = "" C1 = "1.0E-8"          />
+		<unit id = "m4"  desc = "" C1 = "1.0"             />
+		<unit id = "in4" desc = "" C1 = "4.162314256E-07" />
+		<unit id = "ft4" desc = "" C1 = "8.630974842E-03" />
+	</group>
+	
+	<group name = "Force">
+		<unit id = "N"    desc = "Newton"           C1 = "0.001"       />
+		<unit id = "kN"   desc = "kilo Newton"      C1 = "1.0"         />
+		<unit id = "MN"   desc = "mega Newton"      C1 = "1000.0"      />
+		<unit id = "lbf"  desc = "pound force"      C1 = "0.004448222" />
+		<unit id = "klbf" desc = "kilo pound force" C1 = "4.448222"    />
+	</group>
+	
+	<group name = "Moment">
+		<unit id = "kNcm"    desc = "" C1 = "0.01"        />
+		<unit id = "kNm"     desc = "" C1 = "1.0"         />
+		<unit id = "MNcm"    desc = "" C1 = "10.0"        />
+		<unit id = "klbf ft" desc = "" C1 = "1.355818066" />
+		<unit id = "klbf in" desc = "" C1 = "0.112984838" />
+	</group>
+	
+	<group name = "Pressure">
+		<unit id = "kN/m2"    desc = ""       C1 = "1.0"         />
+		<unit id = "Pa"       desc = "Pascal" C1 = "0.001"       />
+		<unit id = "N/m2"     desc = ""       C1 = "0.001"       />
+		<unit id = "N/cm2"    desc = ""       C1 = "10.0"        />
+		<unit id = "N/mm2"    desc = ""       C1 = "1000.0"      />
+		<unit id = "kN/cm2"   desc = ""       C1 = "10000.0"     />
+		<unit id = "klbf/in2" desc = ""       C1 = "6894.75789"  />
+		<unit id = "klbf/ft2" desc = ""       C1 = "47.88026312" />
+		<unit id = "hPa"      desc = ""       C1 = "0.1"         />
+		<unit id = "kPa"      desc = ""       C1 = "1.0"         />
+		<unit id = "mmHg"     desc = ""       C1 = "0.133322"    />
+		<unit id = "inHg"     desc = ""		  C1 = "3.386388"    />
+		<unit id = "bar"      desc = ""       C1 = "100.0"       />
+		<unit id = "psi"      desc = ""       C1 = "6.894757"    />
+	</group>
+	
+	<group name = "Temperature">
+		<unit id = "C" desc = "degree Celsius"    C1 = "1.0"            C0 = "0.0" />
+		<unit id = "F" desc = "degree Fahrenheit" C1 = "0.555555555556" C0 = "-17.77777777778"/>
+		<unit id = "K" desc = "degree Kelvin"     C1 = "1.0"            C0 = "-273.15"/>
+		<unit id = "R" desc = "degree Rankine"    C1 = "0.555555555556" C0 = "491.67"/>
+	</group>
+	
+	<group name = "Temperature Difference">
+		<unit id = "dC" desc = "degree Celsius"    C1 = "1.0"            />
+		<unit id = "dF" desc = "degree Fahrenheit" C1 = "0.555555555556" />
+		<unit id = "dK" desc = "degree Kelvin"     C1 = "1.0"            />
+		<unit id = "dR" desc = "degree Rankine"    C1 = "0.555555555556" />
+	</group>
+	
+	<group name = "Mass">
+		<unit id = "kg"  desc = "kilogram" C1 = "1.0"         />
+		<unit id = "g"   desc = "gram"     C1 = "0.001"       />
+		<unit id = "lbs" desc = "pound"    C1 = "0.45359237"  />
+		<unit id = "oz"  desc = "ounce"    C1 = "0.028349523" />
+	</group>
+	
+	<group name = "Density">
+		<unit id = "kg/m3"  desc = "" C1 = "1"           />
+		<unit id = "g/cm3"  desc = "" C1 = "1000.0"      />
+		<unit id = "lb/ft3" desc = "" C1 = "16.01846337" />
+		<unit id = "oz/in3" desc = "" C1 = "1729.994045" />
+	</group>
+	
+	<group name = "Temperature Expansion">
+		<unit id = "1/dC" desc = "" C1 = "1.0" />
+		<unit id = "1/dF" desc = "" C1 = "1.8" />
+		<unit id = "1/dK" desc = "" C1 = "1.0" />
+		<unit id = "1/dR" desc = "" C1 = "1.8" />
+	</group>
+	
+	<group name = "Angle">
+		<unit id = "rad"  desc = "" C1 = "1.0"                 />
+		<unit id = "deg"  desc = "" C1 = "0.0174532925199433"  />
+		<unit id = "grad" desc = "" C1 = "0.01570796326794897" />
+	</group>
+	
+	<group name = "Force per Distance">
+		<unit id = "kN/cm"   desc = "kilo Newton per centimeter" C1 = "1.0"         />
+		<unit id = "kN/m"    desc = "kilo Newton per meter"      C1 = "0.01"        />
+		<unit id = "klbf/ft" desc = ""                           C1 = "0.145939042" />
+		<unit id = "klbf/in" desc = ""                           C1 = "1.751268504" />
+	</group>
+	
+	<group name = "Moment per Distance">
+		<unit id = "kNcm/cm"    desc = "" C1 = "1.0"      />
+		<unit id = "kNm/m"      desc = "" C1 = "1"        />
+		<unit id = "klbf ft/ft" desc = "" C1 = "4.448222" />
+		<unit id = "klbf in/in" desc = "" C1 = "4.448222" />
+	</group>
+	
+	<group name = "Speed">
+		<unit id = "m/s"      desc = "meter per second"     C1 = "1.0"                   />
+		<unit id = "km/h"     desc = "kilometer per second" C1 = "0.27777777777777777"   />
+		<unit id = "knots"    desc = ""                     C1 = "0.51444444444444444"   />
+		<unit id = "kts"      desc = ""                     C1 = "0.51444444444444444"   />
+		<unit id = "mph"      desc = "miles per hour"       C1 = "0.44704"               />
+		<unit id = "m/min"    desc = "meter per minute"     C1 = "1.666666666666667E-02" />
+		<unit id = "ft/min"   desc = "feet per minute"      C1 = "0.00508"               />
+		<unit id = "mach"     desc = ""                     C1 = "340.29"                />
+	</group>
+	
+	<group name = "Volume Flow">
+		<unit id = "l/s"   desc = "liter per second"    C1 = "1.0"                      />
+		<unit id = "gal/h" desc = "US gallons per hour" C1 = "1.051503273333333333E-03" />
+		<unit id = "l/h"   desc = "liter per hour"      C1 = "2.7777777777777777E-04"   />
+	</group>
+
+	<group name = "Frequency">
+		<unit id = "Hz"    desc = "Hertz"                   C1 = "1.0"      />
+		<unit id = "kHz"   desc = "kilo Hertz"              C1 = "1000.0"   />
+		<unit id = "MHz"   desc = "mega Hertz"              C1 = "1.0E6"    />
+		<unit id = "GHz"   desc = "giga Hertz"              C1 = "1.0E9"    />
+		<unit id = "RPM"   desc = "Revolutions per minute"  C1 = "60.0"     />
+		<unit id = "RPH"   desc = "Revolutions per hour"    C1 = "3600.0"   />
+	</group>
+
+	<group name = "Voltage">
+		<unit id = "V"     desc = "Volt"                    C1 = "1.0"      />
+		<unit id = "kV"    desc = "kilo Volt"               C1 = "1000.0"   />
+		<unit id = "mV"    desc = "mili Volt"               C1 = "0.001"    />
+	</group>
+	
+	<group name = "Current">
+		<unit id = "A"     desc = "Ampere"                  C1 = "1.0"      />
+		<unit id = "mA"    desc = "mili Ampere"             C1 = "0.001"    />
+	</group>
+
+	<group name = "Angular Velocity">
+		<unit id = "rad/s" desc = "radians per second"      C1 = "1.0"                />
+		<unit id = "deg/s" desc = "degrees per second"      C1 = "0.0174532925199433" />
+	</group>
+	
+	<group name = "Time">
+		<unit id = "s"   desc = "second" C1 = "1.0"                     />
+		<unit id = "min" desc = "minute" C1 = "1.66666666666666667E-02" />
+		<unit id = "h"   desc = "hour"   C1 = "2.77777777777777778E-04" />
+	</group>
+
+</group_list>

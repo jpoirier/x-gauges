@@ -1,0 +1,3 @@
+- create make file using qmake: -spec macx-g++
+
+- modified items prefaced with "//XXX:"

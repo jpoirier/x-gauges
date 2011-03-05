@@ -1,0 +1,452 @@
+<?xml version="1.0"?>
+<logbook version="1">
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-12T14:10:14" on="2008-06-12T14:06:34"/>
+      <engine off="2008-06-12T14:13:24" on="2008-06-12T14:11:04"/>
+      <flight landing="2008-06-12T14:11:44" takeoff="2008-06-12T14:06:43"/>
+      <record>0067_12.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-12T14:22:23" on="2008-06-12T14:18:44"/>
+      <engine off="2008-06-12T14:25:34" on="2008-06-12T14:23:14"/>
+      <flight landing="2008-06-12T14:23:54" takeoff="2008-06-12T14:18:53"/>
+      <record>0068_12.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-18T09:17:13" on="2008-06-18T09:13:33"/>
+      <engine off="2008-06-18T09:20:23" on="2008-06-18T09:18:03"/>
+      <flight landing="2008-06-18T09:18:43" takeoff="2008-06-18T09:13:43"/>
+      <record>0070_18.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-18T12:25:15" on="2008-06-18T12:24:48"/>
+      <flight landing="2008-06-18T12:25:15" takeoff="2008-06-18T12:24:57"/>
+      <record>0071_18.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-18T12:29:08" on="2008-06-18T12:28:53"/>
+      <flight landing="2008-06-18T12:29:08" takeoff="2008-06-18T12:29:02"/>
+      <record>0072_18.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-18T12:47:35" on="2008-06-18T12:46:55"/>
+      <flight landing="2008-06-18T12:47:35" takeoff="2008-06-18T12:47:04"/>
+      <record>0073_18.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-18T12:49:04" on="2008-06-18T12:48:35"/>
+      <flight landing="2008-06-18T12:49:04" takeoff="2008-06-18T12:48:44"/>
+      <record>0074_18.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-18T12:50:24" on="2008-06-18T12:49:52"/>
+      <flight landing="2008-06-18T12:50:24" takeoff="2008-06-18T12:50:01"/>
+      <record>0075_18.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-18T12:59:56" on="2008-06-18T12:57:21"/>
+      <flight landing="2008-06-18T12:59:56" takeoff="2008-06-18T12:57:30"/>
+      <record>0076_18.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-18T13:04:23" on="2008-06-18T13:04:04"/>
+      <flight landing="2008-06-18T13:04:23" takeoff="2008-06-18T13:04:13"/>
+      <record>0077_18.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-06-18T13:11:27" on="2008-06-18T13:04:04"/>
+      <engine off="2008-06-18T13:14:37" on="2008-06-18T13:12:17"/>
+      <flight landing="2008-06-18T13:07:47" takeoff="2008-06-18T13:04:13"/>
+      <flight landing="2008-06-18T13:12:57" takeoff="2008-06-18T13:07:57"/>
+      <record>0078_18.06.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-25T15:58:17" on="2008-08-25T15:08:44"/>
+      <flight landing="2008-08-25T15:58:17" takeoff="2008-08-25T15:08:44"/>
+      <record>0095_25.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>ALES KRAJNC</pilot>
+      <engine off="2008-08-25T15:08:32" on="2008-08-25T15:08:26"/>
+      <flight landing="2008-08-25T15:08:32" takeoff="2008-08-25T15:08:26"/>
+      <record>0093_25.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-26T11:13:15" on="2008-08-26T11:08:00"/>
+      <flight landing="2008-08-26T11:13:15" takeoff="2008-08-26T11:08:00"/>
+      <record>0096_26.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-26T11:13:02" on="2008-08-26T11:11:53"/>
+      <flight landing="2008-08-26T11:13:02" takeoff="2008-08-26T11:11:53"/>
+      <record>0094_26.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-26T11:24:55" on="2008-08-26T11:15:06"/>
+      <flight landing="2008-08-26T11:24:55" takeoff="2008-08-26T11:15:06"/>
+      <record>0097_26.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-26T13:11:16" on="2008-08-26T11:25:04"/>
+      <flight landing="2008-08-26T13:11:16" takeoff="2008-08-26T11:25:04"/>
+      <record>0098_26.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-26T13:18:51" on="2008-08-26T13:13:20"/>
+      <flight landing="2008-08-26T13:18:51" takeoff="2008-08-26T13:13:20"/>
+      <record>0096_26.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-26T13:37:36" on="2008-08-26T13:27:49"/>
+      <flight landing="2008-08-26T13:37:36" takeoff="2008-08-26T13:27:49"/>
+      <record>0097_26.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-26T13:40:59" on="2008-08-26T13:35:07"/>
+      <flight landing="2008-08-26T13:40:59" takeoff="2008-08-26T13:35:07"/>
+      <record>0098_26.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-26T14:03:20" on="2008-08-26T13:41:34"/>
+      <flight landing="2008-08-26T14:03:20" takeoff="2008-08-26T13:41:34"/>
+      <record>0099_26.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-26T15:07:16" on="2008-08-26T14:03:35"/>
+      <flight landing="2008-08-26T15:07:16" takeoff="2008-08-26T14:03:35"/>
+      <record>0100_26.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-27T11:12:59" on="2008-08-27T11:00:18"/>
+      <flight landing="2008-08-27T11:12:59" takeoff="2008-08-27T11:00:18"/>
+      <record>0101_27.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-27T15:20:17" on="2008-08-27T14:49:18"/>
+      <flight landing="2008-08-27T15:20:17" takeoff="2008-08-27T14:49:18"/>
+      <record>0102_27.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-27T21:52:56" on="2008-08-27T21:42:37"/>
+      <flight landing="2008-08-27T21:52:56" takeoff="2008-08-27T21:42:37"/>
+      <record>0103_27.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-28T11:47:10" on="2008-08-28T11:10:25"/>
+      <flight landing="2008-08-28T11:47:10" takeoff="2008-08-28T11:10:25"/>
+      <record>0104_28.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-28T12:32:11" on="2008-08-28T12:16:28"/>
+      <flight landing="2008-08-28T12:32:11" takeoff="2008-08-28T12:16:28"/>
+      <record>0105_28.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-28T14:00:15" on="2008-08-28T13:11:51"/>
+      <flight landing="2008-08-28T14:00:15" takeoff="2008-08-28T13:11:51"/>
+      <record>0106_28.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-29T13:20:22" on="2008-08-29T13:15:44"/>
+      <flight landing="2008-08-29T13:20:22" takeoff="2008-08-29T13:15:44"/>
+      <record>0108_29.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-29T13:27:37" on="2008-08-29T13:21:06"/>
+      <flight landing="2008-08-29T13:27:37" takeoff="2008-08-29T13:21:06"/>
+      <record>0109_29.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-31T13:18:37" on="2008-08-31T13:14:29"/>
+      <flight landing="2008-08-31T13:18:37" takeoff="2008-08-31T13:14:29"/>
+      <record>0001_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-31T13:30:14" on="2008-08-31T13:28:22"/>
+      <flight landing="2008-08-31T13:30:14" takeoff="2008-08-31T13:28:22"/>
+      <record>0002_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-31T13:46:25" on="2008-08-31T13:45:20"/>
+      <flight landing="2008-08-31T13:46:25" takeoff="2008-08-31T13:45:20"/>
+      <record>0003_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-31T14:11:14" on="2008-08-31T14:10:26"/>
+      <flight landing="2008-08-31T14:11:14" takeoff="2008-08-31T14:10:26"/>
+      <record>0004_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-31T14:25:43" on="2008-08-31T14:21:27"/>
+      <flight landing="2008-08-31T14:25:43" takeoff="2008-08-31T14:21:27"/>
+      <record>0005_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-31T14:28:52" on="2008-08-31T14:26:56"/>
+      <flight landing="2008-08-31T14:28:52" takeoff="2008-08-31T14:26:56"/>
+      <record>0006_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-31T14:50:36" on="2008-08-31T14:45:58"/>
+      <flight landing="2008-08-31T14:50:36" takeoff="2008-08-31T14:45:58"/>
+      <record>0007_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-31T14:56:10" on="2008-08-31T14:51:47"/>
+      <flight landing="2008-08-31T14:56:10" takeoff="2008-08-31T14:51:47"/>
+      <record>0008_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-31T17:41:05" on="2008-08-31T14:57:30"/>
+      <flight landing="2008-08-31T17:41:05" takeoff="2008-08-31T14:57:30"/>
+      <record>0009_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-31T21:30:39" on="2008-08-31T21:30:30"/>
+      <flight landing="2008-08-31T21:30:39" takeoff="2008-08-31T21:30:30"/>
+      <record>0010_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-08-29T15:46:40" on="2008-08-29T13:28:11"/>
+      <flight landing="2008-08-29T15:46:40" takeoff="2008-08-29T13:28:11"/>
+      <record>0108_29.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-09-01T14:24:20" on="2008-09-01T14:18:27"/>
+      <flight landing="2008-09-01T14:24:20" takeoff="2008-09-01T14:18:27"/>
+      <record>0111_01.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-09-01T14:31:26" on="2008-09-01T14:25:08"/>
+      <flight landing="2008-09-01T14:31:26" takeoff="2008-09-01T14:25:08"/>
+      <record>0112_01.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-09-01T14:33:11" on="2008-09-01T14:31:33"/>
+      <flight landing="2008-09-01T14:33:11" takeoff="2008-09-01T14:31:33"/>
+      <record>0113_01.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-09-01T15:57:34" on="2008-09-01T14:33:52"/>
+      <flight landing="2008-09-01T15:57:34" takeoff="2008-09-01T14:33:52"/>
+      <record>0112_01.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-09-15T18:28:04" on="2008-09-15T18:27:25"/>
+      <flight landing="2008-09-15T18:28:04" takeoff="2008-09-15T18:27:25"/>
+      <record>0115_15.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-09-16T13:36:21" on="2008-09-16T13:31:17"/>
+      <flight landing="2008-09-16T13:36:21" takeoff="2008-09-16T13:31:17"/>
+      <record>0116_16.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-09-16T14:04:40" on="2008-09-16T13:36:59"/>
+      <flight landing="2008-09-16T14:04:40" takeoff="2008-09-16T13:36:59"/>
+      <record>0117_16.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Unknown</pilot>
+      <engine off="2008-09-16T14:06:12" on="2008-09-16T14:04:56"/>
+      <flight landing="2008-09-16T14:06:12" takeoff="2008-09-16T14:04:56"/>
+      <record>0118_16.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-16T18:39:24" on="2008-09-16T18:35:49"/>
+      <flight landing="2008-09-16T18:39:24" takeoff="2008-09-16T18:35:49"/>
+      <record>0119_16.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-16T20:18:17" on="2008-09-16T19:01:00"/>
+      <flight landing="2008-09-16T20:18:17" takeoff="2008-09-16T19:01:00"/>
+      <record>0120_16.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-17T10:33:04" on="2008-09-17T10:26:51"/>
+      <flight landing="2008-09-17T10:33:04" takeoff="2008-09-17T10:26:51"/>
+      <record>0121_17.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-17T11:03:03" on="2008-09-17T10:33:32"/>
+      <flight landing="2008-09-17T11:03:03" takeoff="2008-09-17T10:33:32"/>
+      <record>0122_17.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-17T11:18:34" on="2008-09-17T11:16:16"/>
+      <flight landing="2008-09-17T11:18:34" takeoff="2008-09-17T11:16:16"/>
+      <record>0123_17.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-17T11:41:01" on="2008-09-17T11:24:59"/>
+      <flight landing="2008-09-17T11:41:01" takeoff="2008-09-17T11:24:59"/>
+      <record>0124_17.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-17T11:45:18" on="2008-09-17T11:42:21"/>
+      <flight landing="2008-09-17T11:45:18" takeoff="2008-09-17T11:42:21"/>
+      <record>0125_17.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-17T12:12:49" on="2008-09-17T12:07:30"/>
+      <flight landing="2008-09-17T12:12:49" takeoff="2008-09-17T12:07:30"/>
+      <record>0126_17.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-17T12:26:56" on="2008-09-17T12:13:31"/>
+      <flight landing="2008-09-17T12:26:56" takeoff="2008-09-17T12:13:31"/>
+      <record>0127_17.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-17T14:52:17" on="2008-09-17T12:27:12"/>
+      <flight landing="2008-09-17T14:52:17" takeoff="2008-09-17T12:27:12"/>
+      <record>0128_17.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-17T15:06:51" on="2008-09-17T14:52:33"/>
+      <flight landing="2008-09-17T15:06:51" takeoff="2008-09-17T14:52:33"/>
+      <record>0129_17.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-18T15:34:52" on="2008-09-18T11:43:33"/>
+      <flight landing="2008-09-18T15:34:52" takeoff="2008-09-18T11:43:33"/>
+      <record>0130_18.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-21T17:06:20" on="2008-09-21T17:04:44"/>
+      <flight landing="2008-09-21T17:06:20" takeoff="2008-09-21T17:04:44"/>
+      <record>0131_21.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-21T17:14:40" on="2008-09-21T17:13:10"/>
+      <flight landing="2008-09-21T17:14:40" takeoff="2008-09-21T17:13:10"/>
+      <record>0132_21.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2008-09-21T17:30:42" on="2008-09-21T17:26:52"/>
+      <flight landing="2008-09-21T17:30:42" takeoff="2008-09-21T17:26:52"/>
+      <record>0133_21.09.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Aleš Krajnc</pilot>
+      <engine off="2008-08-31T23:53:36" on="2008-08-31T23:53:30"/>
+      <flight landing="2008-08-31T23:53:36" takeoff="2008-08-31T23:53:30"/>
+      <record>0011_31.08.08.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2009-03-24T12:06:27" on="2009-03-24T12:06:02"/>
+      <flight landing="2009-03-24T12:06:27" takeoff="2009-03-24T12:01:37"/>
+      <record>0229_24.03.09.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2009-03-24T12:15:22" on="2009-03-24T12:06:39"/>
+      <flight landing="2009-03-24T12:15:22" takeoff="2009-03-24T12:06:39"/>
+      <record>0230_24.03.09.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2009-03-24T12:23:48" on="2009-03-24T12:18:58"/>
+      <flight landing="2009-03-24T12:23:48" takeoff="2009-03-24T12:18:58"/>
+      <record>0231_24.03.09.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2009-03-24T12:32:39" on="2009-03-24T12:24:06"/>
+      <flight landing="2009-03-24T12:32:39" takeoff="2009-03-24T12:24:06"/>
+      <record>0232_24.03.09.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2009-03-24T12:37:22" on="2009-03-24T12:32:45"/>
+      <flight landing="2009-03-24T12:37:22" takeoff="2009-03-24T12:32:45"/>
+      <record>0233_24.03.09.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2009-03-24T12:44:12" on="2009-03-24T12:38:06"/>
+      <flight landing="2009-03-24T12:44:12" takeoff="2009-03-24T12:38:06"/>
+      <record>0234_24.03.09.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2009-03-24T12:47:18" on="2009-03-24T12:46:35"/>
+      <flight landing="2009-03-24T12:47:18" takeoff="2009-03-24T12:46:35"/>
+      <record>0235_24.03.09.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2009-04-08T12:22:56" on="2009-04-08T12:20:21"/>
+      <flight landing="2009-04-08T12:24:04" takeoff="2009-04-08T12:20:21"/>
+      <record>0236_08.04.09.blog</record>
+   </entry>
+   <entry>
+      <pilot>Georges Chavez</pilot>
+      <engine off="2009-04-08T15:15:18" on="2009-04-08T15:12:03"/>
+      <flight landing="2009-04-08T15:15:19" takeoff="2009-04-08T15:12:03"/>
+      <record>0237_08.04.09.blog</record>
+   </entry>
+</logbook>

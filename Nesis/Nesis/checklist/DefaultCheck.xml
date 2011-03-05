@@ -1,0 +1,89 @@
+<doc>
+<checklist caption = "Cockpit">
+	<item check = "All Switches" 						action = "Off"></item>
+	<item check = "Master Switch"  					action = "Off"></item>
+	<item check = "Primary Flight Controls"		action = "Proper Operation"></item>
+	<item check = "Flaperons"							action = "Proper Operation - Leave Neutral"></item>
+	<item check = "Air Brakes"							action = "Check Operation"></item>
+	<item check = "Trim"									action = "Center Position"></item>
+	<item check = "Windows"								action = "Clean"></item>
+	<item check = "Required Papers"					action = "Check On Board"></item>
+	<item check = "Baggage"								action = "Properly Secured"></item>
+	<item check = "Seats"								action = "Headrests in Place"></item>
+</checklist>
+
+<checklist caption = "Left Wing">
+	<item check = "Surface"								action = "Clear of Ice, Frost"></item>
+	<item check = "Wing Tape"							action = "Secure"></item>
+	<item check = "Fuel Tank"							action = "Check Quantity"></item>
+	<item check = "Fuel Tank Cap"						action = "Secure"></item>
+	<item check = "Fuel Tank Vent"					action = "Clear"></item>
+	<item check = "Aileron and Hinges"				action = "Check"></item>
+	<item check = "Aileron Tape"						action = "Secure"></item>
+	<item check = "Wing Root Tape"					action = "Secure"></item>
+	<item check = "Air Brakes"							action = "Check Springs, Flush when closed"></item>
+	<item check = "Wing Tip and Lights"				action = "Check"></item>
+	<item check = "Tie Downs and Wheel Chock"		action = "Remove"></item>
+	<item check = "Main Gear Strut"					action = "Check"></item>
+	<item check = "Tire"									action = "Proper Inflation, Check Wear"></item>
+	<item check = "Wheel Spat"							action = "Check"></item>
+</checklist>
+
+<checklist caption = "Nose Section">
+	<item check = "General Condition"				action = "Check"></item>
+	<item check = "Windshield"							action = "Clean"></item>
+	<item check = "Propeller"							action = "Check Movement"></item>
+	<item check = "Spinner"								action = "Secure"></item>
+	<item check = "Air Inlets"							action = "Clear"></item>
+	<item check = "Oil"									action = "Check Quantity"></item>
+	<item check = "Coolant"								action = "Check Quantity"></item>
+	<item check = "Cowling"								action = "Secure"></item>
+	<item check = "Fuel Gascolator"					action = "Drain - Check for Water"></item>
+	<item check = "Nose Gear Strut (if fitted)"	action = "Check"></item>
+	<item check = "Nose Wheel Tire"					action = "Proper Inflation, Check Wear"></item>
+</checklist>
+
+<checklist caption = "Right Wing">
+	<item check = "Surface"								action = "Clear of Ice, Frost"></item>
+	<item check = "Wing Tape"							action = "Secure"></item>
+	<item check = "Fuel Tank"							action = "Check Quantity"></item>
+	<item check = "Fuel Tank Cap"						action = "Secure"></item>
+	<item check = "Fuel Tank Vent"					action = "Clear"></item>
+	<item check = "Pitot Tube"							action = "Remove Cover, Holes Clear"></item>
+	<item check = "Aileron and Hinges"				action = "Check"></item>
+	<item check = "Aileron Tape"						action = "Secure"></item>
+	<item check = "Wing Root Tape"					action = "Secure"></item>
+	<item check = "Air Brakes"							action = "Check Springs, Flush when closed"></item>
+	<item check = "Wing Tip and Lights"				action = "Check"></item>
+	<item check = "Tie Downs and Wheel Chock"		action = "Remove"></item>
+	<item check = "Main Gear Strut"					action = "Check"></item>
+	<item check = "Tire"									action = "Proper Inflation, Check Wear"></item>
+	<item check = "Wheel Spat"							action = "Check"></item>
+</checklist>
+
+<checklist caption = "Right Fuselage">
+	<item check = "Transponder Antenna (if fitted)" action = "Secure"></item>
+	<item check = "FM Antenna (if fitted)" 			action = "Secure"></item>
+	<item check = "Empennage" 								action = "Clear of Ice, Frost"></item>
+	<item check = "Radio Antenna (if fitted)"			action = "Secure"></item>
+	<item check = "Right Door" 							action = "Secure"></item>
+</checklist>
+
+<checklist caption = "Tail">
+	<item check = "Stabilizer and Elevator" 			action = "Clear of Ice, Frost"></item>
+	<item check = "Elevator Hinges" 						action = "Check"></item>
+	<item check = "Elevator Tape" 						action = "Secure"></item>
+	<item check = "Rudder" 									action = "Check"></item>
+	<item check = "Rudder Tape" 							action = "Secure"></item>
+	<item check = "Tie Down" 								action = "Remove"></item>
+	<item check = "Tail Wheel / Skid" 					action = "Check"></item>
+</checklist>
+
+<checklist caption = "Left Fuselage">
+	<item check = "Ballistic Chute Bridles"			action = "Secure"></item>
+	<item check = "Ballistic Chute Lid"					action = "Secure"></item>
+	<item check = "Left Door"								action = "Secure"></item>
+	<item check = "Sunroof"									action = "Secure / Clean"></item>
+</checklist>
+
+</doc>
