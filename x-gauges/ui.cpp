@@ -88,25 +88,21 @@ XPWidgetID dest_enable_checkbox[NUM_DEST];
 XPWidgetID default_local_button, cancel_button, set_button;
 */
 void ui_create(void) {
-
 	int item = XPLMAppendMenuItem(XPLMFindPluginsMenu(), "X-Gauges", NULL, true);
 	gMenuId = XPLMCreateMenu("X-Gauges", XPLMFindPluginsMenu(), item, menu_handler, NULL);
 	XPLMAppendMenuItem(gMenuId, "Network Settings", (void*)"Network Settings", true);
 }
 
 void ui_destroy(void) {
-
     ui_kill();
     menu_kill();
 }
 
 void menu_kill(void) {
-
    	XPLMDestroyMenu(gMenuId);
 }
 
 void ui_hide(void) {
-
 	if (gMenuVisible) {
 
 		XPHideWidget(gSettingsWidget);
@@ -115,7 +111,6 @@ void ui_hide(void) {
 }
 
 void ui_kill(void) {
-
 	if (gMenuWidget) {
 
         gMenuWidget = false;
@@ -124,7 +119,6 @@ void ui_kill(void) {
 }
 
 void menu_handler(void* mRef, void* iRef) {
-
     if (!strcmp((char*) iRef, "Network Settings")) {
 		if (!gMenuWidget) {
 
@@ -144,26 +138,21 @@ int callback_handler(XPWidgetMessage    inMessage,
                      XPWidgetID         inWidget,
                      long               inParam1,
                      long               inParam2) {
-
 	char buffer[24];
 
 	// we are not displaying the close (X) to avoid uncertainty about its logic (is it Cancel or OK?)
 	if (inMessage == xpMessage_CloseButtonPushed) {
-
 		ui_hide();
 		return true;
 	}
 
 	if (inMessage == xpMsg_PushButtonPressed) {
-
 		if (inParam1 == (long)gExitButton) {
-
             ui_hide();
             return true;
         }
 
         if (inParam1 == (long)gApplyButton) {
-
             bool reconfig;
             string tmp;
 
@@ -174,7 +163,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = string(buffer);
 
             if (gP1_ip != tmp) {
-
                 gP1_ip = tmp;
                 reconfig = true;
             }
@@ -184,7 +172,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = string(buffer);
 
             if (gP1_port != tmp) {
-
                 gP1_port = tmp;
                 reconfig = true;
             }
@@ -195,7 +182,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = itostring((int)XPGetWidgetProperty(gPilot1Chkbox, xpProperty_ButtonState, NULL));
 
             if (gP1_enabled != tmp) {
-
                 gP1_enabled = tmp;
 
                 if (tmp == '1') {
@@ -213,7 +199,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = string(buffer);
 
             if (gP2_ip != tmp) {
-
                 gP2_ip = tmp;
                 reconfig = true;
             }
@@ -223,7 +208,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = string(buffer);
 
             if (gP2_port != tmp) {
-
                 gP2_port = tmp;
                 reconfig = true;
             }
@@ -234,7 +218,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = itostring((int)XPGetWidgetProperty(gPilot2Chkbox, xpProperty_ButtonState, NULL));
 
             if (gP2_enabled != tmp) {
-
                 gP2_enabled = tmp;
 
                 if (tmp == '1') {
@@ -252,7 +235,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = string(buffer);
 
             if (gCp1_ip != tmp) {
-
                 gCp1_ip = tmp;
                 reconfig = true;
             }
@@ -262,7 +244,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = string(buffer);
 
             if (gCp1_port != tmp) {
-
                 gCp1_port = tmp;
                 reconfig = true;
             }
@@ -273,7 +254,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = itostring((int)XPGetWidgetProperty(gCopilot1Chkbox, xpProperty_ButtonState, NULL));
 
             if (gCp1_enabled != tmp) {
-
                 gCp1_enabled = tmp;
 
                 if (tmp == '1') {
@@ -290,7 +270,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = string(buffer);
 
             if (gCp2_ip != tmp) {
-
                 gCp2_ip = tmp;
                 reconfig = true;
             }
@@ -300,7 +279,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = string(buffer);
 
             if (gCp2_port != tmp) {
-
                 gCp2_port = tmp;
                 reconfig = true;
             }
@@ -311,7 +289,6 @@ int callback_handler(XPWidgetMessage    inMessage,
             tmp = itostring((int) XPGetWidgetProperty(gCopilot2Chkbox, xpProperty_ButtonState, NULL));
 
             if (gCp2_enabled != tmp) {
-
                 gCp2_enabled = tmp;
 
                 if (tmp == '1') {
@@ -329,7 +306,6 @@ int callback_handler(XPWidgetMessage    inMessage,
 
 
 void create_widget(int x, int y, int w, int h) {
-
     int x2 = x + w;
     int y2 = y - h;
 

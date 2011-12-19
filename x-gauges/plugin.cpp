@@ -238,13 +238,9 @@ float FlightLoopCallback(float  inElapsedSinceLastCall,
                          float  inElapsedTimeSinceLastFlightLoop,
                          int    inCounter,
                          void*  inRefcon) {
-
 // todo: looks like the named items can be disgarded and an array used
-
     if ((gFlCbCnt % NETWORK_SEND_INTERVAL) == 0) {
-
         if (XPLMGetDataf(avionics_power_on_ref)) {
-
             GaugeInfo* p1 = 0;
             GaugeInfo* cp1 = 0;
 
@@ -341,7 +337,6 @@ float FlightLoopCallback(float  inElapsedSinceLastCall,
  */
 PLUGIN_API void
 XPluginStop(void) {
-
     pexchange((int*)&threads_run, false);
 
     gP1_ijq.post(new myjob((GaugeInfo*)0));
@@ -365,7 +360,6 @@ XPluginStop(void) {
  */
 PLUGIN_API void
 XPluginDisable(void) {
-
     gEnabled = false;
     gP1Trigger.reset();
     gP2Trigger.reset();
@@ -385,7 +379,6 @@ XPluginDisable(void) {
  */
 PLUGIN_API int
 XPluginEnable(void) {
-
     gEnabled = true;
 
     if (gPowerUp) {
@@ -405,5 +398,4 @@ XPluginEnable(void) {
 
 PLUGIN_API void
 XPluginReceiveMessage(XPLMPluginID inFrom, long inMsg, void* inParam) {
-    // nothing
 }

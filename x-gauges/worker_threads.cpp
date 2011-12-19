@@ -45,7 +45,6 @@ trigger gCp2Trigger(false, false);
  *
  */
 void WorkerThread::execute() {
-
     while (threads_run) {
         state->wait();
 
@@ -73,8 +72,9 @@ void WorkerThread::execute() {
         }
 
 end:
-        if (s)
+        if (s) {
             delete s;
+        }
 
         delete msg;
     }

@@ -14,16 +14,26 @@ uint64_t pack754(long double f, unsigned bits, unsigned expbits) {
     long long sign, exp, significand;
     unsigned significandbits = bits - expbits - 1; // -1 for sign bit
 
-    if (f == 0.0) return 0; // get this special case out of the way
+    if (f == 0.0)
+        return 0; // get this special case out of the way
 
     // check sign and begin normalization
-    if (f < 0) { sign = 1; fnorm = -f; }
-    else { sign = 0; fnorm = f; }
+    if (f < 0) {
+        sign = 1; fnorm = -f;
+    } else {
+        sign = 0; fnorm = f;
+    }
 
     // get the normalized form of f and track the exponent
     shift = 0;
-    while(fnorm >= 2.0) { fnorm /= 2.0; shift++; }
-    while(fnorm < 1.0) { fnorm *= 2.0; shift--; }
+    while(fnorm >= 2.0) {
+        fnorm /= 2.0; shift++;
+    }
+
+    while(fnorm < 1.0) {
+        fnorm *= 2.0; shift--;
+    }
+
     fnorm = fnorm - 1.0;
 
     // calculate the binary form (non-float) of the significand data
@@ -52,8 +62,12 @@ long double unpack754(uint64_t i, unsigned bits, unsigned expbits) {
     // deal with the exponent
     bias = (1 << (expbits-1)) - 1;
     shift = ((i >> significandbits) & ((1LL << expbits)-1)) - bias;
-    while(shift > 0) { result *= 2.0; shift--; }
-    while(shift < 0) { result /= 2.0; shift++; }
+    while(shift > 0) {
+        result *= 2.0; shift--;
+    }
+    while(shift < 0) {
+        result /= 2.0; shift++;
+    }
 
     // sign it
     result *= (i >> (bits - 1)) & 1 ? -1.0: 1.0;

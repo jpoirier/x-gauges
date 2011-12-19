@@ -30,7 +30,6 @@ string config_keys[KEY_CNT] = {"p1_ip", "p1_port", "p1_enabled", "p2_ip",
                                "cp1_enabled", "cp2_ip", "cp2_port", "cp2_enabled"};
 
 void read_config() {
-
     infile f(CFG_FILE);
 
     try {
@@ -67,42 +66,42 @@ void read_config() {
             for (i = 0; i < KEY_CNT; ++i) {
                 if (key == config_keys[i]) {
                     switch (i) {
-                        case 0:
-                            gP1_ip = val;
-                            break;
-                        case 1:
-                            gP1_port = val;
-                            break;
-                        case 2:
-                            gP1_enabled = val;
-                            break;
-                        case 3:
-                            gP2_ip = val;
-                            break;
-                        case 4:
-                            gP2_port = val;
-                            break;
-                        case 5:
-                            gP2_enabled = val;
-                            break;
-                        case 6:
-                            gCp1_ip = val;
-                            break;
-                        case 7:
-                            gCp1_port = val;
-                            break;
-                        case 8:
-                            gCp1_enabled = val;
-                            break;
-                        case 9:
-                            gCp2_ip = val;
-                            break;
-                        case 10:
-                            gCp2_port = val;
-                            break;
-                        case 11:
-                            gCp2_enabled = val;
-                            break;
+                    case 0:
+                        gP1_ip = val;
+                        break;
+                    case 1:
+                        gP1_port = val;
+                        break;
+                    case 2:
+                        gP1_enabled = val;
+                        break;
+                    case 3:
+                        gP2_ip = val;
+                        break;
+                    case 4:
+                        gP2_port = val;
+                        break;
+                    case 5:
+                        gP2_enabled = val;
+                        break;
+                    case 6:
+                        gCp1_ip = val;
+                        break;
+                    case 7:
+                        gCp1_port = val;
+                        break;
+                    case 8:
+                        gCp1_enabled = val;
+                        break;
+                    case 9:
+                        gCp2_ip = val;
+                        break;
+                    case 10:
+                        gCp2_port = val;
+                        break;
+                    case 11:
+                        gCp2_enabled = val;
+                        break;
                     }
 
                     break;
@@ -118,7 +117,6 @@ void read_config() {
 }
 
 void write_config() {
-
     outfile f(CFG_FILE);
 
     try {
